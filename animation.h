@@ -23,7 +23,7 @@ public:
     void setIdleFunc(void (*f)(void));
     void run();
 
-    Animation(int argc, char **argv);
+    Animation(int argc, char **argv, const char *title);
 };
 
 #endif // ANIMATION_H_
