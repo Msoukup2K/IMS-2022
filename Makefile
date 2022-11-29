@@ -10,6 +10,7 @@
 
 CXX = g++
 CXXFLAGS = -std=c++17 -MMD -Wall -Wextra -pedantic
+LDLIBS = -lGL -lGLU -lglut
 
 TARGET = run
 
@@ -24,7 +25,7 @@ DEPS = $(patsubst %.cpp, %.d, $(SRCS))
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CXX) $^ -o $@
+	$(CXX) $^ -o $@ $(LDLIBS)
 
 -include $(DEPS)
 
