@@ -17,8 +17,8 @@ int main(int argc, char *argv[])
     Animation animation{argc, argv, "IMS 2022/23 -- simulace"};
 
     animation.run();
-
-	return EXIT_SUCCESS;
+    
+    return EXIT_SUCCESS;
 }
 
 /******************************************
