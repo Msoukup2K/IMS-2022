@@ -15,24 +15,22 @@
 #include "ca.h"
 
 
+static CA *ca = new CA{1000, 500};
+
+void cleanup()
+{
+	delete ca;
+}
+
 int main(int argc, char *argv[])
 {
-//    Animation animation{argc, argv, "IMS 2022/23 -- simulace"};
-
-//    animation.run();
-
-	CA *ca = new CA{100, 50};
+	atexit(cleanup);
 	GLIDER_GUN_INIT(ca);
 
-	for (int i = 0; i < 100; ++i)
-	{
-		system("clear");
-		ca->print();
-		ca->step();
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
-	}
-
-	delete ca;
+    Animation animation{argc, argv, "IMS 2022/23 -- simulace"};
+	animation.setModel(ca);
+	animation.setFreq(300);
+    animation.run();
     
     return EXIT_SUCCESS;
 }
