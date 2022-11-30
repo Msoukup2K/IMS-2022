@@ -12,8 +12,16 @@
 
 #include <iostream>
 
-CA::CA(unsigned int width, unsigned int height) :
-    X{width}, Y{height}
+
+CA::CA(unsigned int width) : X{width}, Y{1}
+{
+    board = new Cell *[X];
+    board_old = new Cell *[X];
+    board[0] = new Cell[Y]{};
+    board_old[0] = new Cell[Y]{};
+}
+
+CA::CA(unsigned int width, unsigned int height) : X{width}, Y{height}
 {
     board = new Cell *[X];
     board_old = new Cell *[X];
@@ -35,6 +43,18 @@ CA::~CA()
 
     delete[] board;
     delete[] board_old;
+}
+
+void CA::setHeight(unsigned int height)
+{
+    Y = height;
+    for (unsigned int i = 0; i < X; ++i)
+    {
+        delete[] board[i];
+        delete[] board_old[i];
+        board[i] = new Cell[Y]{};
+        board_old[i] = new Cell[Y]{};
+    }
 }
 
 unsigned int CA::neighbors(unsigned int x, unsigned int y)

@@ -14,18 +14,19 @@
 #include <ostream>
 
 #define GLIDER_GUN_INIT(ca) do { \
-    ca->initCell(30, 50);ca->initCell(31, 50);ca->initCell(30, 51); \
-    ca->initCell(31, 51);ca->initCell(40, 50);ca->initCell(40, 51); \
-    ca->initCell(40, 52);ca->initCell(41, 49);ca->initCell(41, 53); \
-    ca->initCell(42, 48);ca->initCell(42, 54);ca->initCell(43, 48); \
-    ca->initCell(43, 54);ca->initCell(44, 51);ca->initCell(45, 49); \
-    ca->initCell(45, 53);ca->initCell(46, 50);ca->initCell(46, 51); \
-    ca->initCell(46, 52);ca->initCell(47, 51);ca->initCell(50, 50); \
-    ca->initCell(50, 49);ca->initCell(50, 48);ca->initCell(51, 50); \
-    ca->initCell(51, 49);ca->initCell(51, 48);ca->initCell(52, 47); \
-    ca->initCell(52, 51);ca->initCell(54, 47);ca->initCell(54, 46); \
-    ca->initCell(54, 51);ca->initCell(54, 52);ca->initCell(64, 49); \
-    ca->initCell(64, 48);ca->initCell(65, 48);ca->initCell(65, 49); \
+    if (ca->width() > 65 && ca->height() > 51) { \
+        ca->initCell(30, 50);ca->initCell(31, 50);ca->initCell(30, 51); \
+        ca->initCell(31, 51);ca->initCell(40, 50);ca->initCell(40, 51); \
+        ca->initCell(40, 52);ca->initCell(41, 49);ca->initCell(41, 53); \
+        ca->initCell(42, 48);ca->initCell(42, 54);ca->initCell(43, 48); \
+        ca->initCell(43, 54);ca->initCell(44, 51);ca->initCell(45, 49); \
+        ca->initCell(45, 53);ca->initCell(46, 50);ca->initCell(46, 51); \
+        ca->initCell(46, 52);ca->initCell(47, 51);ca->initCell(50, 50); \
+        ca->initCell(50, 49);ca->initCell(50, 48);ca->initCell(51, 50); \
+        ca->initCell(51, 49);ca->initCell(51, 48);ca->initCell(52, 47); \
+        ca->initCell(52, 51);ca->initCell(54, 47);ca->initCell(54, 46); \
+        ca->initCell(54, 51);ca->initCell(54, 52);ca->initCell(64, 49); \
+        ca->initCell(64, 48);ca->initCell(65, 48);ca->initCell(65, 49); } \
 } while (0)
 
 using Cell = unsigned int;
@@ -34,7 +35,7 @@ class CA
 {
 private:
     const unsigned int X; // width of the board
-    const unsigned int Y; // height of the board
+    unsigned int Y; // height of the board
     Cell **board;
     Cell **board_old;
 
@@ -43,11 +44,13 @@ public:
     unsigned int height() { return Y; }
     Cell get(unsigned int x, unsigned int y) { return board[x][y]; }
     
+    void setHeight(unsigned int height);
     void initCell(unsigned int x, unsigned int y);
     unsigned int neighbors(unsigned int x, unsigned int y);
     void step();
     void print();
 
+    explicit CA(unsigned int width);
     CA(unsigned int width, unsigned int height);
     ~CA();
 };

@@ -8,28 +8,28 @@
 *
 *******************************************/
 
-#include <thread>
 #include <iostream>
 
 #include "animation.h"
 #include "ca.h"
 
 
-static CA *ca = new CA{1000, 500};
+static CA *MODEL = nullptr;
 
 void cleanup()
 {
-    delete ca;
+    delete MODEL;
 }
 
 int main(int argc, char *argv[])
 {
     atexit(cleanup);
-    GLIDER_GUN_INIT(ca);
 
-    Animation animation{argc, argv, "IMS 2022/23 -- simulace"};
-    animation.setModel(ca);
-    animation.setFreq(300);
+    MODEL = new CA{150};
+    Animation animation{argc, argv, "IMS 2022/23 -- simulace", MODEL};
+    GLIDER_GUN_INIT(MODEL);
+
+    animation.setFreq(200);
     animation.run();
     
     return EXIT_SUCCESS;

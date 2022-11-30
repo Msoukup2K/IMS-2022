@@ -10,7 +10,6 @@
 
 #include "animation.h"
 
-#define NUM_OF_SQUARES 100
 
 CA *ANIMATION_MODEL = nullptr;
 int ANIMATION_FREQUENCY = 1000;
@@ -34,16 +33,14 @@ void square(GLfloat x, GLfloat y, GLfloat size)
 
 void grid()
 {
-    GLfloat sqr_size = 1.0f / NUM_OF_SQUARES;
+    GLfloat sqr_size = 2.0f / ANIMATION_MODEL->width();
 
     GLfloat x = 0;
     GLfloat y = 0;
-    unsigned int xi = 0;
-    unsigned int yi = 0;
-
-    while (y < 1.01f)
+//bool sw = true;
+    for (unsigned int yi = 0; yi < ANIMATION_MODEL->height(); ++yi)
     {
-        while (x < 2.0f)
+        for (unsigned int xi = 0; xi < ANIMATION_MODEL->width(); ++xi)
         {
             if (ANIMATION_MODEL->get(xi, yi))
             {
@@ -51,12 +48,14 @@ void grid()
             }
 
             x += sqr_size;
-            ++xi;
+            //sw = !sw;
         }
         y += sqr_size;
-        ++yi;
         x = 0;
-        xi = 0;
+        //if (ANIMATION_MODEL->width() % 2 == 0)
+        //{
+        //    sw = !sw;
+        //}
     }
 }
 
@@ -105,18 +104,22 @@ void defaultRender(void)
 *    GLUT -- functions for animation
 */
 
-Animation::Animation(int argc, char **argv, const char *title)
+Animation::Animation(int argc, char **argv, const char *title, CA *model)
 {
+    model->setHeight(model->width()/2);
+    ANIMATION_MODEL = model;
+
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-    glutInitWindowPosition(0, 0);
 
+    glutInitWindowPosition(0, 0);
     glutInitWindowSize(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
     glutCreateWindow(title);
 
     setDisplayFunc(defaultRender);
     setReshapeFunc(defaultResize);
     setIdleFunc(defaultRender);
+
 }
 
 void Animation::setDisplayFunc(void (*f)(void))

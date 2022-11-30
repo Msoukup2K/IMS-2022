@@ -28,10 +28,9 @@ public:
     void setIdleFunc(void (*f)(void));
     void run();
 
-    void setModel(CA *ca) { ANIMATION_MODEL = ca; }
     void setFreq(int sp) { ANIMATION_FREQUENCY = sp; }
 
-    Animation(int argc, char **argv, const char *title);
+    Animation(int argc, char **argv, const char *title, CA *model);
 };
 
 #endif // ANIMATION_H_
