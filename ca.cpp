@@ -39,51 +39,51 @@ CA::~CA()
 
 unsigned int CA::neighbors(unsigned int x, unsigned int y)
 {
-	return board_old[x-1][y-1] + board_old[x][y-1] + board_old[x+1][y-1]
-		+  board_old[x-1][y]   +                     board_old[x+1][y]
-		+  board_old[x-1][y+1] + board_old[x][y+1] + board_old[x+1][y+1];
+    return board_old[x-1][y-1] + board_old[x][y-1] + board_old[x+1][y-1]
+        +  board_old[x-1][y]   +                     board_old[x+1][y]
+        +  board_old[x-1][y+1] + board_old[x][y+1] + board_old[x+1][y+1];
 }
 
 void CA::step()
 {
-	for (unsigned int y = 1; y < Y-1; ++y)
-	{
-		for (unsigned int x = 1; x < X-1; ++x)
-		{
-			int neighbour = neighbors(x, y);
-			if (board[x][y] && (neighbour == 2 || neighbour == 3))
-			{
-			}
-			else if (!board[x][y] && neighbour == 3)
-			{
-				board[x][y] = 1;
-			}
-			else
-			{
-				board[x][y] = 0;
-			}
-		}
-	}
+    for (unsigned int y = 1; y < Y-1; ++y)
+    {
+        for (unsigned int x = 1; x < X-1; ++x)
+        {
+            int neighbour = neighbors(x, y);
+            if (board[x][y] && (neighbour == 2 || neighbour == 3))
+            {
+            }
+            else if (!board[x][y] && neighbour == 3)
+            {
+                board[x][y] = 1;
+            }
+            else
+            {
+                board[x][y] = 0;
+            }
+        }
+    }
 
-	for (unsigned int y = 1; y < Y-1; ++y)
-	{
-		for (unsigned int x = 1; x < X-1; ++x)
-		{
-			board_old[x][y] = board[x][y];
-		}
-	}
+    for (unsigned int y = 1; y < Y-1; ++y)
+    {
+        for (unsigned int x = 1; x < X-1; ++x)
+        {
+            board_old[x][y] = board[x][y];
+        }
+    }
 }
 
 void CA::print()
 {
-	for (unsigned int y = 1; y < Y-1; ++y)
-	{
-		for (unsigned int x = 1; x < X-1; ++x)
-		{
-			std::cout << (board[x][y] ? '$' : '.');
-		}
-		std::cout << std::endl;
-	}
+    for (unsigned int y = 1; y < Y-1; ++y)
+    {
+        for (unsigned int x = 1; x < X-1; ++x)
+        {
+            std::cout << (board[x][y] ? '$' : '.');
+        }
+        std::cout << std::endl;
+    }
 }
 
 
