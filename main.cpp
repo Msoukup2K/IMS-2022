@@ -51,9 +51,9 @@ int main(int argc, char *argv[])
             }
             else if (st == 2)
             {
-                MODEL->setCell(i, j, Cell::NC);
-                MODEL->setCell(i, j+1, Cell::NC);
-                MODEL->setCell(i, j+2, Cell::NC);
+                MODEL->setCell(i, j, Cell::NeC);
+                MODEL->setCell(i, j+1, Cell::NeC);
+                MODEL->setCell(i, j+2, Cell::NeC);
                 if (i == 99)
                     st = 3;
             }

@@ -37,11 +37,16 @@ CA::~CA()
     delete[] board_old;
 }
 
-unsigned int CA::neighbors(unsigned int x, unsigned int y)
+void CA::neighbors(unsigned int x, unsigned int y)
 {
-    return board_old[x-1][y-1] + board_old[x][y-1] + board_old[x+1][y-1]
-        +  board_old[x-1][y]   +                     board_old[x+1][y]
-        +  board_old[x-1][y+1] + board_old[x][y+1] + board_old[x+1][y+1];
+    neighborhood[0] = board_old[x-1][y-1];
+    neighborhood[1] = board_old[x][y-1];
+    neighborhood[2] = board_old[x+1][y-1];
+    neighborhood[3] = board_old[x+1][y];
+    neighborhood[4] = board_old[x+1][y+1];
+    neighborhood[5] = board_old[x][y+1];
+    neighborhood[6] = board_old[x-1][y+1];
+    neighborhood[7] = board_old[x-1][y];
 }
 
 void CA::step()
@@ -50,7 +55,28 @@ void CA::step()
     {
         for (unsigned int x = 1; x < X-1; ++x)
         {
-            int neighbour = neighbors(x, y);
+            neighbors(x, y);
+            switch (get(x, y))
+            {
+            case Cell::PC:
+                rulePC();
+                break;
+
+            case Cell::QC:
+                ruleQC();
+                break;
+
+            case Cell::NeC:
+                ruleNeC();
+                break;
+
+            case Cell::IC:
+                ruleIC();
+                break;
+            
+            default:
+                break;
+            }
         }
     }
 
@@ -61,6 +87,8 @@ void CA::step()
             board_old[x][y] = board[x][y];
         }
     }
+
+    ++time_step;
 }
 
 /******************************************
