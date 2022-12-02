@@ -20,10 +20,10 @@ int ANIMATION_FREQUENCY = 1000;
 *   drawing functions
 */
 
-void square(GLfloat x, GLfloat y, GLfloat size)
+void square(GLfloat x, GLfloat y, GLfloat size, GLfloat gray)
 {
     glBegin(GL_POLYGON);
-        glColor3f(1.0f, 1.0f, 1.0f);
+        glColor3f(gray, gray, gray);
         glVertex2f(x, y);
         glVertex2f(x+size, y);
         glVertex2f(x+size, y+size);
@@ -33,30 +33,47 @@ void square(GLfloat x, GLfloat y, GLfloat size)
 
 void grid()
 {
-    GLfloat sqr_size = 2.0f / ANIMATION_MODEL->width();
+    GLfloat sqr_size = 2.0f / ANIMATION_MODEL->size();
 
     GLfloat x = 0;
     GLfloat y = 0;
-//bool sw = true;
-    for (unsigned int yi = 0; yi < ANIMATION_MODEL->height(); ++yi)
+#if 0
+    bool sw = true;
+    for (unsigned int yi = 0; yi < ANIMATION_MODEL->size(); ++yi)
     {
-        for (unsigned int xi = 0; xi < ANIMATION_MODEL->width(); ++xi)
+        for (unsigned int xi = 0; xi < ANIMATION_MODEL->size(); ++xi)
         {
-            if (ANIMATION_MODEL->get(xi, yi))
+            if (sw)
             {
-                square(x, y, sqr_size);
+                square(x, y, sqr_size, 0.7f);
             }
 
             x += sqr_size;
-            //sw = !sw;
+            sw = !sw;
         }
         y += sqr_size;
         x = 0;
-        //if (ANIMATION_MODEL->width() % 2 == 0)
-        //{
-        //    sw = !sw;
-        //}
+        if (ANIMATION_MODEL->size() % 2 == 0)
+        {
+            sw = !sw;
+        }
     }
+#else
+    for (unsigned int yi = 0; yi < ANIMATION_MODEL->size(); ++yi)
+    {
+        for (unsigned int xi = 0; xi < ANIMATION_MODEL->size(); ++xi)
+        {
+            if (ANIMATION_MODEL->get(xi, yi))
+            {
+                square(x, y, sqr_size, ANIMATION_MODEL->getColor(xi, yi));
+            }
+
+            x += sqr_size;
+        }
+        y += sqr_size;
+        x = 0;
+    }
+#endif
 }
 
 /*
@@ -71,21 +88,24 @@ void grid()
 
 void defaultResize(int w, int h)
 {
-    if (h == 0)
-        h = 1;
-
-    float ratio =  w * 1.0 / h;
+    if (w > h)
+    {
+        w = h;
+    }
+    else
+    {
+        h = w;
+    }
 
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glTranslatef(-1.0f, -1.0f, 0);
-    glScalef(1.0f, ratio, 1.0f);
 }
 
 void defaultRender(void)
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
     grid();
 
     int elapsed = glutGet(GLUT_ELAPSED_TIME);
@@ -106,20 +126,23 @@ void defaultRender(void)
 
 Animation::Animation(int argc, char **argv, const char *title, CA *model)
 {
-    model->setHeight(model->width()/2);
     ANIMATION_MODEL = model;
 
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
-    glutInitWindowPosition(0, 0);
-    glutInitWindowSize(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
+    int window_width = glutGet(GLUT_SCREEN_HEIGHT) - 100;
+
+    glutInitWindowPosition(
+        glutGet(GLUT_SCREEN_WIDTH)/2 - window_width/2,
+        glutGet(GLUT_SCREEN_HEIGHT)/2 - window_width/2
+    );
+    glutInitWindowSize(window_width, window_width);
     glutCreateWindow(title);
 
     setDisplayFunc(defaultRender);
     setReshapeFunc(defaultResize);
     setIdleFunc(defaultRender);
-
 }
 
 void Animation::setDisplayFunc(void (*f)(void))

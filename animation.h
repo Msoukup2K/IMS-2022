@@ -28,10 +28,15 @@ public:
     void setIdleFunc(void (*f)(void));
     void run();
 
-    void setFreq(int sp) { ANIMATION_FREQUENCY = sp; }
+    void setFreq(int freq);
 
     Animation(int argc, char **argv, const char *title, CA *model);
 };
+
+inline void Animation::setFreq(int freq)
+{
+    ANIMATION_FREQUENCY = freq;
+}
 
 #endif // ANIMATION_H_
 
