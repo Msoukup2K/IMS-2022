@@ -25,69 +25,86 @@ enum Cell {
 class CA
 {
 private:
-    const unsigned int X; // the board is of size X*X
+    const int X; // the board is of size X*X
     Cell **board;
     Cell **board_old;
     Cell neighborhood[8]; // the neighborhood of the current cell
     /*
         indexing of neighborhood (C = current):
-        0  1  2
-        7  C  3
         6  5  4
+        7  C  3
+        0  1  2
+
+        from bottom left corner -- corresponding to visualization in the animation
     */
 
     // parameters:
-    unsigned int time_step = 0;
-    double p_0 = 0.7;
-    double a_p = 0.42;
-    double b_n = 0.53;
-    double R_max = 37.5;
-    double p_dT = 0.5;
-    double p_dI = 0.2;
+    int time_step = 0;
+    double p_0 = 0.7; // base probability of division of PC
+    double a_p = 0.42; // base necrotic thickness
+    double b_n = 0.53; // base living tumor thickness
+    double R_max = 37.5; // maximum tumor extent
+    double p_dT = 0.5; // tumor death constant
+    double p_dI = 0.2; // immune death constant
+    double K_c = 0.0 - R_max / 2.0; // chemotherapy effect on the division
 
-    // private methods:
-    void neighbors(unsigned int x, unsigned int y);
+    double r(int x, int y); // distance from center
+    double br(int x, int y); // probability of diviion of PC
+    double R_t(); // average radius of the tumor
+    double W_p(); // thickness of proliferating cancerous cells
 
-    void rulePC();
-    void ruleQC();
-    void ruleNeC();
-    void ruleIC();
+    // rules:
+    void rulePC(int x, int y);
+    void ruleQC(int x, int y);
+    void ruleNeC(int x, int y);
+    void ruleIC(int x, int y);
+
+    // set neighborhood to the neighbors of the cell at (x, y)
+    void neighbors(int x, int y);
 
 public:
-    unsigned int size();
+    int size();
     
-    Cell get(unsigned int x, unsigned int y);
-    float getColor(unsigned int x, unsigned int y);
-    void initCell(unsigned int x, unsigned int y, Cell cell);
-    void setCell(unsigned int x, unsigned int y, Cell cell);
+    Cell get(int x, int y);
+    Cell getOld(int x, int y);
+    float getColor(int x, int y);
 
+    void initCell(int x, int y, Cell cell);
+    void setCell(int x, int y, Cell cell);
+
+    void init();
     void step();
 
-    explicit CA(unsigned int width);
+    explicit CA(int width);
     ~CA();
 };
 
-inline unsigned int CA::size()
+inline int CA::size()
 {
     return X;
 }
 
-inline Cell CA::get(unsigned int x, unsigned int y)
+inline Cell CA::get(int x, int y)
 {
     return board[x][y];
 }
 
-inline float CA::getColor(unsigned int x, unsigned int y)
+inline Cell CA::getOld(int x, int y)
+{
+    return board_old[x][y];
+}
+
+inline float CA::getColor(int x, int y)
 {
     return get(x, y) / 255.0f;
 }
 
-inline void CA::initCell(unsigned int x, unsigned int y, Cell cell)
+inline void CA::initCell(int x, int y, Cell cell)
 {
     board[x][y] = board_old[x][y] = cell;
 }
 
-inline void CA::setCell(unsigned int x, unsigned int y, Cell cell)
+inline void CA::setCell(int x, int y, Cell cell)
 {
     board[x][y] = cell;
 }

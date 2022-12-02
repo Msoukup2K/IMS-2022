@@ -37,31 +37,10 @@ void grid()
 
     GLfloat x = 0;
     GLfloat y = 0;
-#if 0
-    bool sw = true;
-    for (unsigned int yi = 0; yi < ANIMATION_MODEL->size(); ++yi)
-    {
-        for (unsigned int xi = 0; xi < ANIMATION_MODEL->size(); ++xi)
-        {
-            if (sw)
-            {
-                square(x, y, sqr_size, 0.7f);
-            }
 
-            x += sqr_size;
-            sw = !sw;
-        }
-        y += sqr_size;
-        x = 0;
-        if (ANIMATION_MODEL->size() % 2 == 0)
-        {
-            sw = !sw;
-        }
-    }
-#else
-    for (unsigned int yi = 0; yi < ANIMATION_MODEL->size(); ++yi)
+    for (int yi = 0; yi < ANIMATION_MODEL->size(); ++yi)
     {
-        for (unsigned int xi = 0; xi < ANIMATION_MODEL->size(); ++xi)
+        for (int xi = 0; xi < ANIMATION_MODEL->size(); ++xi)
         {
             if (ANIMATION_MODEL->get(xi, yi))
             {
@@ -73,7 +52,6 @@ void grid()
         y += sqr_size;
         x = 0;
     }
-#endif
 }
 
 /*

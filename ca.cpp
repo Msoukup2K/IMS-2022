@@ -10,15 +10,18 @@
 
 #include "ca.h"
 
+#include <cmath>
+#include <utility>
+#include <vector>
 #include "probability.h"
 
 
-CA::CA(unsigned int size) : X{size}
+CA::CA(int size) : X{size % 2 == 0 ? size+1 : size}
 {
     board = new Cell *[X]{};
     board_old = new Cell *[X]{};
 
-    for (unsigned int i = 0; i < X; ++i)
+    for (int i = 0; i < X; ++i)
     {
         board[i] = new Cell[X]{Cell::ES};
         board_old[i] = new Cell[X]{Cell::ES};
@@ -27,7 +30,7 @@ CA::CA(unsigned int size) : X{size}
 
 CA::~CA()
 {
-    for (unsigned int i = 0; i < X; ++i)
+    for (int i = 0; i < X; ++i)
     {
         delete[] board[i];
         delete[] board_old[i];
@@ -37,7 +40,29 @@ CA::~CA()
     delete[] board_old;
 }
 
-void CA::neighbors(unsigned int x, unsigned int y)
+double CA::r(int x, int y)
+{
+    int center = X/2;
+    return sqrt(pow(x-center, 2) + pow(y-center, 2));
+}
+
+double CA::br(int x, int y)
+{
+    return p_0 * ( 1.0 - r(x, y) / (R_max - K_c) );
+}
+
+double CA::R_t()
+{
+    // TODO average radius of the tumor
+}
+
+double CA::W_p()
+{
+    a_p * pow(R_t(), 2.0/3.0);
+}
+
+
+void CA::neighbors(int x, int y)
 {
     neighborhood[0] = board_old[x-1][y-1];
     neighborhood[1] = board_old[x][y-1];
@@ -49,29 +74,34 @@ void CA::neighbors(unsigned int x, unsigned int y)
     neighborhood[7] = board_old[x-1][y];
 }
 
+void CA::init()
+{
+    initCell(X/2, X/2, Cell::PC);
+}
+
 void CA::step()
 {
-    for (unsigned int y = 1; y < X-1; ++y)
+    for (int y = 1; y < X-1; ++y)
     {
-        for (unsigned int x = 1; x < X-1; ++x)
+        for (int x = 1; x < X-1; ++x)
         {
             neighbors(x, y);
-            switch (get(x, y))
+            switch (getOld(x, y))
             {
             case Cell::PC:
-                rulePC();
+                rulePC(x, y);
                 break;
 
             case Cell::QC:
-                ruleQC();
+                ruleQC(x, y);
                 break;
 
             case Cell::NeC:
-                ruleNeC();
+                ruleNeC(x, y);
                 break;
 
             case Cell::IC:
-                ruleIC();
+                ruleIC(x, y);
                 break;
             
             default:
@@ -80,9 +110,9 @@ void CA::step()
         }
     }
 
-    for (unsigned int y = 1; y < X-1; ++y)
+    for (int y = 1; y < X-1; ++y)
     {
-        for (unsigned int x = 1; x < X-1; ++x)
+        for (int x = 1; x < X-1; ++x)
         {
             board_old[x][y] = board[x][y];
         }
@@ -91,19 +121,78 @@ void CA::step()
     ++time_step;
 }
 
-void CA::rulePC()
+void CA::rulePC(int x, int y)
+{
+    std::vector<std::pair<int, int>> indices{};
+    int xo{};
+    int yo{};
+    for (int i = 0; i < 8; ++i)
+    {
+        switch (i)
+        {
+        case 0:
+            xo = -1;
+            yo = -1;
+            break;
+        case 1:
+            xo = 0;
+            yo = -1;
+            break;
+        case 2:
+            xo = +1;
+            yo = -1;
+            break;
+        case 3:
+            xo = +1;
+            yo = 0;
+            break;
+        case 4:
+            xo = +1;
+            yo = +1;
+            break;
+        case 5:
+            xo = 0;
+            yo = +1;
+            break;
+        case 6:
+            xo = -1;
+            yo = +1;
+            break;
+        case 7:
+            xo = -1;
+            yo = 0;
+            break;
+        
+        default:
+            break;
+        }
+
+        if (neighborhood[i] == Cell::ES || neighborhood[i] == Cell::NoC)
+        {
+            indices.push_back(std::make_pair(x+xo, y+yo));
+        }
+    }
+
+    if (!indices.empty())
+    {
+        std::pair<int, int> idx = random_choice(indices);
+
+        if (br(x, y))
+        {
+            setCell(idx.first, idx.second, Cell::PC);
+        }
+    }
+}
+
+void CA::ruleQC(int x, int y)
 {
 }
 
-void CA::ruleQC()
+void CA::ruleNeC(int x, int y)
 {
 }
 
-void CA::ruleNeC()
-{
-}
-
-void CA::ruleIC()
+void CA::ruleIC(int x, int y)
 {
 }
 

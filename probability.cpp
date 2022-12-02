@@ -1,7 +1,7 @@
 /******************************************
 * FILE: probability.cpp
 *
-* [ProjectName]
+* IMS 2022/23 -- 11. Model pomocí celulárního automatu
 *
 * author:   Vojtech Kucera (xkucer0h)
 * date:     2022-12-02
@@ -21,6 +21,11 @@ void probability_init()
 bool probability(double prob)
 {
     return ((1.0f * std::rand()) / RAND_MAX) <= prob;
+}
+
+std::pair<int, int> random_choice(std::vector<std::pair<int, int>> indices)
+{
+    return indices.at(std::rand() % indices.size());
 }
 
 /******************************************
