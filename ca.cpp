@@ -91,6 +91,22 @@ void CA::step()
     ++time_step;
 }
 
+void CA::rulePC()
+{
+}
+
+void CA::ruleQC()
+{
+}
+
+void CA::ruleNeC()
+{
+}
+
+void CA::ruleIC()
+{
+}
+
 /******************************************
 * END OF FILE: ca.cpp
 *******************************************/
