@@ -15,6 +15,7 @@
 #include <vector>
 #include "probability.h"
 
+#include <iostream>
 
 CA::CA(int size) : X{size % 2 == 0 ? size+1 : size}
 {
@@ -23,8 +24,8 @@ CA::CA(int size) : X{size % 2 == 0 ? size+1 : size}
 
     for (int i = 0; i < X; ++i)
     {
-        board[i] = new Cell[X]{Cell::ES};
-        board_old[i] = new Cell[X]{Cell::ES};
+        board[i] = new Cell[X]{};
+        board_old[i] = new Cell[X]{};
     }
 }
 
@@ -50,8 +51,8 @@ double CA::br(int x, int y)
 {
     return p_0 * ( 1.0 - r(x, y) / (R_max - K_c) );
 }
-#include <iostream>
-double CA::R_t()
+
+void CA::R_t_calc()
 {
     double sum = 0;
     long point_count = 0;
@@ -95,13 +96,17 @@ double CA::R_t()
         }
     }
 
-    std::cout << sum/point_count << std::endl;
-    return sum / point_count;
+    R_t =  sum / point_count;
 }
 
-double CA::W_p()
+void CA::W_p_calc()
 {
-    a_p * pow(R_t(), 2.0/3.0);
+    W_p = a_p * pow(R_t, 2.0/3.0);
+}
+
+void CA::R_n_calc()
+{
+    R_n = R_t - b_n * pow(R_t, 2.0/3.0);
 }
 
 
@@ -124,7 +129,11 @@ void CA::init()
 
 void CA::step()
 {
-    R_t();
+    ++time_step;
+    R_t_calc();
+    W_p_calc();
+    R_n_calc(); // calculate R_n
+
     for (int y = 1; y < X-1; ++y)
     {
         for (int x = 1; x < X-1; ++x)
@@ -140,9 +149,7 @@ void CA::step()
                 ruleQC(x, y);
                 break;
 
-            case Cell::NeC:
-                ruleNeC(x, y);
-                break;
+            // ignore necrotic cells, they stay the same
 
             case Cell::IC:
                 ruleIC(x, y);
@@ -161,12 +168,11 @@ void CA::step()
             board_old[x][y] = board[x][y];
         }
     }
-
-    ++time_step;
 }
 
 void CA::rulePC(int x, int y)
 {
+    double W_p_line = R_t - W_p;
     std::vector<std::pair<int, int>> indices{};
     int xo{};
     int yo{};
@@ -211,35 +217,41 @@ void CA::rulePC(int x, int y)
             break;
         }
 
-        if (neighborhood[i] == Cell::ES || neighborhood[i] == Cell::NoC)
+        if (neighborhood[i].type == Cell::Type::ES || neighborhood[i].type == Cell::Type::NoC)
         {
             indices.push_back(std::make_pair(x+xo, y+yo));
         }
     }
 
-    if (!indices.empty())
+    if (!indices.empty() && probability(br(x, y)))
     {
         std::pair<int, int> idx = random_choice(indices);
-
-        if (probability(br(x, y)))
-        {
-            setCell(idx.first, idx.second, Cell::PC);
-        }
+        setCell(idx.first, idx.second, Cell::PC);
     }
-
-    // TODO W_p 
+    else if (r(x, y) < W_p_line)
+    {
+        setCell(x, y, Cell::QC);
+    }
 }
 
 void CA::ruleQC(int x, int y)
 {
-}
-
-void CA::ruleNeC(int x, int y)
-{
+    double dist = r(x, y);
+    if (dist < R_n)
+    {
+        setCell(x, y, Cell::NeC);
+    }
+/*
+    if (dist > R_t - W_p)
+    {
+        setCell(x, y, Cell::PC);
+    }
+*/
 }
 
 void CA::ruleIC(int x, int y)
 {
+    (void)x;(void)y;
 }
 
 /******************************************

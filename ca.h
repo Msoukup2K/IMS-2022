@@ -11,15 +11,20 @@
 #ifndef CA_H_
 #define CA_H_
 
-enum Cell {
-    ES = 0, // empty space
-    NoC = 0, // normal cell
-    PC = 112, // proliferative tumor cell
-    QC = 211, // quiscent cell
-    NeC = 90, // necrotic cell
-    US = 0, // unstable state
-    IC = 255, // immune cell
-    DC = 0, // dead cell as a result of immune system or therapy
+struct Cell {
+    enum Type {
+        ES = 0, // empty space
+        NoC = 0, // normal cell
+        PC = 112, // proliferative tumor cell
+        QC = 211, // quiscent cell
+        NeC = 90, // necrotic cell
+        US = 0, // unstable state
+        IC = 255, // immune cell
+        DC = 0, // dead cell as a result of immune system or therapy
+    };
+
+    int age = 0;
+    Type type = ES;
 };
 
 class CA
@@ -41,22 +46,25 @@ private:
     // parameters:
     int time_step = 0;
     double p_0 = 0.7; // base probability of division of PC
-    double a_p = 0.42; // base necrotic thickness
-    double b_n = 0.53; // base living tumor thickness
+    double a_p = 0.42; // base living tumor thickness
+    double b_n = 0.53; // base necrotic thickness
     double R_max = 37.5; // maximum tumor extent
     double p_dT = 0.5; // tumor death constant
     double p_dI = 0.2; // immune death constant
     double K_c = 0.0 - R_max / 2.0; // chemotherapy effect on the division
+    double R_t; // average radius of the tumor, rough approximation (error around 1)
+    double W_p; // thickness of proliferating cancerous cells
+    double R_n; // thickness of necrotic cells
 
     double r(int x, int y); // distance from center
     double br(int x, int y); // probability of diviion of PC
-    double R_t(); // average radius of the tumor, rough approximation (error around 1)
-    double W_p(); // thickness of proliferating cancerous cells
+    void R_t_calc(); // calculate R_t
+    void W_p_calc(); // calculate W_p
+    void R_n_calc(); // calculate R_n
 
     // rules:
     void rulePC(int x, int y);
     void ruleQC(int x, int y);
-    void ruleNeC(int x, int y);
     void ruleIC(int x, int y);
 
     // set neighborhood to the neighbors of the cell at (x, y)
@@ -65,12 +73,12 @@ private:
 public:
     int size();
     
-    Cell get(int x, int y);
-    Cell getOld(int x, int y);
+    Cell::Type get(int x, int y);
+    Cell::Type getOld(int x, int y);
     float getColor(int x, int y);
 
-    void initCell(int x, int y, Cell cell);
-    void setCell(int x, int y, Cell cell);
+    void initCell(int x, int y, Cell::Type type);
+    void setCell(int x, int y, Cell::Type type);
 
     void init();
     void step();
@@ -84,14 +92,14 @@ inline int CA::size()
     return X;
 }
 
-inline Cell CA::get(int x, int y)
+inline Cell::Type CA::get(int x, int y)
 {
-    return board[x][y];
+    return board[x][y].type;
 }
 
-inline Cell CA::getOld(int x, int y)
+inline Cell::Type CA::getOld(int x, int y)
 {
-    return board_old[x][y];
+    return board_old[x][y].type;
 }
 
 inline float CA::getColor(int x, int y)
@@ -99,14 +107,14 @@ inline float CA::getColor(int x, int y)
     return get(x, y) / 255.0f;
 }
 
-inline void CA::initCell(int x, int y, Cell cell)
+inline void CA::initCell(int x, int y, Cell::Type type)
 {
-    board[x][y] = board_old[x][y] = cell;
+    board[x][y].type = board_old[x][y].type = type;
 }
 
-inline void CA::setCell(int x, int y, Cell cell)
+inline void CA::setCell(int x, int y, Cell::Type type)
 {
-    board[x][y] = cell;
+    board[x][y].type = type;
 }
 
 #endif // CA_H_
