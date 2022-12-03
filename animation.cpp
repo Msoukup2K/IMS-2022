@@ -20,10 +20,30 @@ int ANIMATION_FREQUENCY = 1000;
 *   drawing functions
 */
 
-void square(GLfloat x, GLfloat y, GLfloat size, GLfloat gray)
+void square(GLfloat x, GLfloat y, GLfloat size, Cell::Type type)
 {
     glBegin(GL_POLYGON);
-        glColor3f(gray, gray, gray);
+        switch (type)
+        {
+        case Cell::PC:
+            glColor3f(0, 0, 1.0f);
+            break;
+
+        case Cell::QC:
+            glColor3f(1.0f, 0, 0);
+            break;
+        
+        case Cell::NeC:
+            glColor3f(139.0f/255, 0, 0);
+            break;
+
+        case Cell::IC:
+            glColor3f(1.0f, 1.0f, 1.0f);
+            break;
+        
+        default:
+            break;
+        }
         glVertex2f(x, y);
         glVertex2f(x+size, y);
         glVertex2f(x+size, y+size);
@@ -42,9 +62,9 @@ void grid()
     {
         for (int xi = 0; xi < ANIMATION_MODEL->size(); ++xi)
         {
-            if (ANIMATION_MODEL->get(xi, yi))
+            if (ANIMATION_MODEL->get(xi, yi).type)
             {
-                square(x, y, sqr_size, ANIMATION_MODEL->getColor(xi, yi));
+                square(x, y, sqr_size, ANIMATION_MODEL->get(xi, yi).type);
             }
 
             x += sqr_size;

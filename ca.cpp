@@ -59,17 +59,17 @@ void CA::R_t_calc()
     for (int y = 0; y < X; ++y)
     {
         int x = 0;
-        for (; getOld(x, y) != Cell::PC && x < X/2; ++x)
+        for (; getOld(x, y).type != Cell::PC && x < X/2; ++x)
             ;
-        if (getOld(x, y) == Cell::PC)
+        if (getOld(x, y).type == Cell::PC)
         {
             sum += r(x, y);
             ++point_count;
 
             x = X - 1;
-            for (; getOld(x, y) != Cell::PC && x > X/2; --x)
+            for (; getOld(x, y).type != Cell::PC && x > X/2; --x)
                 ;
-            if (getOld(x, y) == Cell::PC)
+            if (getOld(x, y).type == Cell::PC)
             {
                 sum += r(x, y);
                 ++point_count;
@@ -79,16 +79,16 @@ void CA::R_t_calc()
     for (int x = 0; x < X; ++x)
     {
         int y = 0;
-        for (; getOld(x, y) != Cell::PC && y < X/2; ++y)
+        for (; getOld(x, y).type != Cell::PC && y < X/2; ++y)
             ;
-        if (getOld(x, y) == Cell::PC)
+        if (getOld(x, y).type == Cell::PC)
         {
             sum += r(x, y);
             ++point_count;
             y = X - 1;
-            for (; getOld(x, y) != Cell::PC && y > X/2; --y)
+            for (; getOld(x, y).type != Cell::PC && y > X/2; --y)
                 ;
-            if (getOld(x, y) == Cell::PC)
+            if (getOld(x, y).type == Cell::PC)
             {
                 sum += r(x, y);
                 ++point_count;
@@ -106,7 +106,7 @@ void CA::W_p_calc()
 
 void CA::R_n_calc()
 {
-    R_n = R_t - b_n * pow(R_t, 2.0/3.0);
+    R_n = R_t - b_n * pow(R_t, 2.0/3.0) - W_p;
 }
 
 
@@ -129,17 +129,21 @@ void CA::init()
 
 void CA::step()
 {
+    if (time_step >= 150)
+    {
+        return;
+    }
     ++time_step;
     R_t_calc();
     W_p_calc();
-    R_n_calc(); // calculate R_n
+    R_n_calc();
 
     for (int y = 1; y < X-1; ++y)
     {
         for (int x = 1; x < X-1; ++x)
         {
             neighbors(x, y);
-            switch (getOld(x, y))
+            switch (getOld(x, y).type)
             {
             case Cell::PC:
                 rulePC(x, y);
@@ -172,7 +176,6 @@ void CA::step()
 
 void CA::rulePC(int x, int y)
 {
-    double W_p_line = R_t - W_p;
     std::vector<std::pair<int, int>> indices{};
     int xo{};
     int yo{};
@@ -217,7 +220,7 @@ void CA::rulePC(int x, int y)
             break;
         }
 
-        if (neighborhood[i].type == Cell::Type::ES || neighborhood[i].type == Cell::Type::NoC)
+        if (neighborhood[i].type == Cell::ES || neighborhood[i].type == Cell::NoC)
         {
             indices.push_back(std::make_pair(x+xo, y+yo));
         }
@@ -226,9 +229,11 @@ void CA::rulePC(int x, int y)
     if (!indices.empty() && probability(br(x, y)))
     {
         std::pair<int, int> idx = random_choice(indices);
+        setCell(x, y, Cell::PC);
         setCell(idx.first, idx.second, Cell::PC);
     }
-    else if (r(x, y) < W_p_line)
+
+    if (++get(x, y).age >= age_threshold && r(x, y) < R_t - W_p)
     {
         setCell(x, y, Cell::QC);
     }
@@ -241,12 +246,10 @@ void CA::ruleQC(int x, int y)
     {
         setCell(x, y, Cell::NeC);
     }
-/*
-    if (dist > R_t - W_p)
+    else if (dist > R_t - W_p)
     {
         setCell(x, y, Cell::PC);
     }
-*/
 }
 
 void CA::ruleIC(int x, int y)

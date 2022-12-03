@@ -15,11 +15,11 @@ struct Cell {
     enum Type {
         ES = 0, // empty space
         NoC = 0, // normal cell
-        PC = 112, // proliferative tumor cell
-        QC = 211, // quiscent cell
-        NeC = 90, // necrotic cell
+        PC = 1, // proliferative tumor cell
+        QC = 2, // quiscent cell
+        NeC = 3, // necrotic cell
         US = 0, // unstable state
-        IC = 255, // immune cell
+        IC = 4, // immune cell
         DC = 0, // dead cell as a result of immune system or therapy
     };
 
@@ -45,6 +45,7 @@ private:
 
     // parameters:
     int time_step = 0;
+    int age_threshold = 15;
     double p_0 = 0.7; // base probability of division of PC
     double a_p = 0.42; // base living tumor thickness
     double b_n = 0.53; // base necrotic thickness
@@ -58,9 +59,9 @@ private:
 
     double r(int x, int y); // distance from center
     double br(int x, int y); // probability of diviion of PC
-    void R_t_calc(); // calculate R_t
-    void W_p_calc(); // calculate W_p
-    void R_n_calc(); // calculate R_n
+    void R_t_calc(); // calculate R_t for the current step
+    void W_p_calc(); // calculate W_p for the current step
+    void R_n_calc(); // calculate R_n for the current step
 
     // rules:
     void rulePC(int x, int y);
@@ -73,9 +74,8 @@ private:
 public:
     int size();
     
-    Cell::Type get(int x, int y);
-    Cell::Type getOld(int x, int y);
-    float getColor(int x, int y);
+    Cell& get(int x, int y);
+    Cell& getOld(int x, int y);
 
     void initCell(int x, int y, Cell::Type type);
     void setCell(int x, int y, Cell::Type type);
@@ -92,19 +92,14 @@ inline int CA::size()
     return X;
 }
 
-inline Cell::Type CA::get(int x, int y)
+inline Cell& CA::get(int x, int y)
 {
-    return board[x][y].type;
+    return board[x][y];
 }
 
-inline Cell::Type CA::getOld(int x, int y)
+inline Cell& CA::getOld(int x, int y)
 {
-    return board_old[x][y].type;
-}
-
-inline float CA::getColor(int x, int y)
-{
-    return get(x, y) / 255.0f;
+    return board_old[x][y];
 }
 
 inline void CA::initCell(int x, int y, Cell::Type type)
@@ -114,6 +109,7 @@ inline void CA::initCell(int x, int y, Cell::Type type)
 
 inline void CA::setCell(int x, int y, Cell::Type type)
 {
+    board[x][y].age = 0;
     board[x][y].type = type;
 }
 
