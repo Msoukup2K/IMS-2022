@@ -3,8 +3,10 @@
 *
 * IMS 2022/23 -- 11. Model pomocí celulárního automatu
 *
-* author:   Vojtech Kucera (xkucer0h)
-* date:     2022-11-29
+* authors:   Vojtech Kucera (xkucer0h),
+*            Martin Soukup (xsouku15)
+*
+* date:     2022-12-04
 *
 *******************************************/
 

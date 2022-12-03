@@ -3,8 +3,10 @@
 *
 * IMS 2022/23 -- 11. Model pomocí celulárního automatu
 *
-* author:   Vojtech Kucera (xkucer0h)
-* date:     2022-11-29
+* authors:   Vojtech Kucera (xkucer0h),
+*            Martin Soukup (xsouku15)
+*
+* date:     2022-12-04
 *
 *******************************************/
 
@@ -39,6 +41,28 @@ CA::~CA()
 
     delete[] board;
     delete[] board_old;
+}
+
+void CA::moveCellToCenter(int x, int y)
+{
+    int center = X/2;
+
+    if (x <= center && y <= center)
+    {
+        moveCell(x, y, x + probability(0.7), y + probability(0.7));
+    }
+    else if (x <= center && y >= center)
+    {
+        moveCell(x, y, x + probability(0.7), y - probability(0.7));
+    }
+    else if (x >= center && y >= center)
+    {
+        moveCell(x, y, x - probability(0.7), y - probability(0.7));
+    }
+    else if (x >= center && y <= center)
+    {
+        moveCell(x, y, x - probability(0.7), y + probability(0.7));
+    }
 }
 
 double CA::r(int x, int y)
@@ -126,12 +150,38 @@ void CA::init()
 {
     initCell(X/2, X/2, Cell::PC);
     ++nPC;
+    ++nT;
+
+    for (int y = 1; y < X-1; ++y)
+    {
+        for (int x = 1; x < X-1; ++x)
+        {
+            if (probability(0.001))
+            {
+                initCell(x, y, Cell::IC);
+                ++nIC;
+            }
+        }
+    }
+
+    for (int y = X-35; y > X-55; y -= 2)
+    {
+        for (int x = X-35; x > X-55; x -= 2)
+        {
+            initCell(x, y, Cell::IC);
+            get(x, y).age = -1;
+            ++nIC;
+        }
+    }
 }
 
 void CA::step()
 {
+//    std::cout << "k: " << 1.f*nIC/(X*X) << "\tnT/X*X: " << 1.f*nT/(X*X) << "\tnPT/nT: " << 1.f*nPC/nT << std::endl;
+//    std::cout << 1.f*nIC/(X*X)*((1.f*nT/(X*X)) * (1.f*nPC/nT)) << std::endl;
+//    std::cout << "nIC: " << nIC << "\tnT: " << nT << "\tnPC: " << nPC << std::endl;
 #if 0
-    if (time_step >= 25)
+    if (time_step >= 100)
     {
         return;
     }
@@ -162,6 +212,14 @@ void CA::step()
                 ruleIC(x, y);
                 break;
             
+            case Cell::US:
+                ruleUS(x, y);
+                break;
+
+            case Cell::DC:
+                ruleDC(x, y);
+                break;
+            
             default:
                 break;
             }
@@ -179,6 +237,8 @@ void CA::step()
     nT_diff = 0;
     nPC += nPC_diff;
     nPC_diff = 0;
+    nIC += nIC_diff;
+    nIC_diff = 0;
 }
 
 void CA::rulePC(int x, int y)
@@ -265,7 +325,8 @@ void CA::ruleQC(int x, int y)
 
 void CA::ruleIC(int x, int y)
 {
-    std::vector<std::pair<int, int>> indices{};
+    std::vector<std::pair<int, int>> indicesPC{};
+    std::vector<std::pair<int, int>> indicesES{};
     int xo{};
     int yo{};
     for (int i = 0; i < 8; ++i)
@@ -311,8 +372,81 @@ void CA::ruleIC(int x, int y)
 
         if (neighborhood[i].type == Cell::PC)
         {
-            indices.push_back(std::make_pair(x+xo, y+yo));
+            indicesPC.push_back(std::make_pair(x+xo, y+yo));
         }
+        if (neighborhood[i].type == Cell::ES)
+        {
+            indicesES.push_back(std::make_pair(x+xo, y+yo));
+        }
+    }
+
+    if (!indicesPC.empty())
+    {
+        std::pair<int, int> idx = random_choice(indicesPC);
+        if (probability(p_dT))
+        {
+            setCell(idx.first, idx.second, Cell::US);
+            setCell(x, y, Cell::ES);
+            --nPC_diff;
+            --nT_diff;
+            --nIC_diff;
+            ++nVic;
+        }
+        else if (probability(p_dI))
+        {
+            setCell(x, y, Cell::ES);
+            --nIC_diff;
+            ++nDef;
+        }
+    }
+    else if (r(x, y) > R_t && get(x, y).age == -1)
+    {
+        moveCellToCenter(x, y);
+    }
+    else if (!indicesES.empty())
+    {
+        std::pair<int, int> idx = random_choice(indicesES);
+        if (get(idx.first, idx.second).type == Cell::ES)
+        {
+            moveCell(x, y, idx.first, idx.second);
+        }
+
+        indicesES.push_back(std::make_pair(x, y));
+        idx = random_choice(indicesES);
+        double spawn_rate = (1.0 * (nVic - nDef) * nPC) / (nT);
+        if (get(idx.first, idx.second).type == Cell::ES)
+        {
+            if (probability((spawn_rate * 50.0) / (nIC * r(x, y))))
+            {
+                setCell(idx.first, idx.second, Cell::IC);
+                ++nIC_diff;
+            }
+        }
+    }
+}
+
+void CA::ruleUS(int x, int y)
+{
+    if (probability(++get(x, y).age / age_threshold))
+    {
+        setCell(x, y, Cell::DC);
+    }
+}
+
+void CA::ruleDC(int x, int y)
+{
+    int cnt = 0;
+    for (int i = 0; i < 8; ++i)
+    {
+        if (neighborhood[i].type == Cell::ES)
+        {
+            ++cnt;
+        }
+    }
+
+    if (cnt > 5)
+    {
+        setCell(x, y, Cell::ES);
     }
 }
 

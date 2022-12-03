@@ -3,8 +3,10 @@
 *
 * IMS 2022/23 -- 11. Model pomocí celulárního automatu
 *
-* author:   Vojtech Kucera (xkucer0h)
-* date:     2022-11-29
+* authors:   Vojtech Kucera (xkucer0h),
+*            Martin Soukup (xsouku15)
+*
+* date:     2022-12-04
 *
 *******************************************/
 
@@ -17,9 +19,9 @@ struct Cell {
         PC = 1, // proliferative tumor cell
         QC = 2, // quiscent cell
         NeC = 3, // necrotic cell
-        US = 0, // unstable state
-        IC = 4, // immune cell
-        DC = 0, // dead cell as a result of immune system or therapy
+        US = 4, // unstable state
+        IC = 5, // immune cell
+        DC = 6, // dead cell as a result of immune system or therapy
     };
 
     int age = 0;
@@ -45,17 +47,21 @@ private:
     // cell count differents
     int nT_diff = 0;
     int nPC_diff = 0;
+    int nIC_diff = 0;
 
     // cell counts
-    int nT = 0;
-    int nPC = 0;
-    int nIC = 0;
+    int nT = 0; // number of tumor cells
+    int nPC = 0; // number of PCs
+    int nIC = 0; // number of ICs
+    int nVic = 0; // number of IC victories over PCs
+    int nDef = 0; // number of IC defeats by PCs
 
     // parameters:
     int time_step = 0;
-    int age_threshold = 15;
+    int age_threshold = 10;
+
     double p_0 = 0.7; // base probability of division of PC
-    double a_p = 0.22; // base living tumor thickness
+    double a_p = 0.42; // base living tumor thickness
     double b_n = 0.53; // base necrotic thickness
     double R_max = 37.5; // maximum tumor extent
     double p_dT = 0.5; // tumor death constant
@@ -75,6 +81,8 @@ private:
     void rulePC(int x, int y);
     void ruleQC(int x, int y);
     void ruleIC(int x, int y);
+    void ruleUS(int x, int y);
+    void ruleDC(int x, int y);
 
     // set neighborhood to the neighbors of the cell at (x, y)
     void neighbors(int x, int y);
@@ -87,6 +95,8 @@ public:
 
     void initCell(int x, int y, Cell::Type type);
     void setCell(int x, int y, Cell::Type type);
+    void moveCell(int x0, int y0, int x1, int y1);
+    void moveCellToCenter(int x, int y);
 
     void init();
     void step();
@@ -112,6 +122,7 @@ inline Cell& CA::getOld(int x, int y)
 
 inline void CA::initCell(int x, int y, Cell::Type type)
 {
+    board[x][y].age = board_old[x][y].age = 0;
     board[x][y].type = board_old[x][y].type = type;
 }
 
@@ -119,6 +130,15 @@ inline void CA::setCell(int x, int y, Cell::Type type)
 {
     board[x][y].age = 0;
     board[x][y].type = type;
+}
+
+inline void CA::moveCell(int x0, int y0, int x1, int y1)
+{
+    if (get(x1, y1).type == Cell::ES)
+    {
+        board[x1][y1] = board[x0][y0];
+        board[x0][y0] = Cell{};
+    }
 }
 
 #endif // CA_H_

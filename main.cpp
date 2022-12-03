@@ -3,8 +3,10 @@
 *
 * IMS 2022/23 -- 11. Model pomocí celulárního automatu
 *
-* author:   Vojtech Kucera (xkucer0h)
-* date:     2022-11-16
+* authors:   Vojtech Kucera (xkucer0h),
+*            Martin Soukup (xsouku15)
+*
+* date:     2022-12-04
 *
 *******************************************/
 
@@ -26,7 +28,7 @@ int main(int argc, char *argv[])
     atexit(cleanup);
     probability_init();
 
-    MODEL = new CA{200};
+    MODEL = new CA{180};
     MODEL->init();
 
     Animation animation{argc, argv, "IMS 2022/23 -- simulace", MODEL};

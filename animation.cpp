@@ -3,8 +3,10 @@
 *
 * IMS 2022/23 -- 11. Model pomocí celulárního automatu
 *
-* author:   Vojtech Kucera (xkucer0h)
-* date:     2022-11-29
+* authors:   Vojtech Kucera (xkucer0h),
+*            Martin Soukup (xsouku15)
+*
+* date:     2022-12-04
 *
 *******************************************/
 
@@ -38,7 +40,15 @@ void square(GLfloat x, GLfloat y, GLfloat size, Cell::Type type)
             break;
 
         case Cell::IC:
-            glColor3f(1.0f, 1.0f, 1.0f);
+            glColor3f(1.0f, 253.0f/255, 208.0f/255);
+            break;
+
+        case Cell::US:
+            glColor3f(0, 1.0f, 0);
+            break;
+
+        case Cell::DC:
+            glColor3f(0, 139.0f/255, 0);
             break;
         
         default:
@@ -58,9 +68,9 @@ void grid()
     GLfloat x = 0;
     GLfloat y = 0;
 
-    for (int yi = 0; yi < ANIMATION_MODEL->size(); ++yi)
+    for (int yi = 1; yi < ANIMATION_MODEL->size()-1; ++yi)
     {
-        for (int xi = 0; xi < ANIMATION_MODEL->size(); ++xi)
+        for (int xi = 1; xi < ANIMATION_MODEL->size()-1; ++xi)
         {
             if (ANIMATION_MODEL->get(xi, yi).type)
             {
