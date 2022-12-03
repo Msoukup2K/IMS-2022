@@ -50,10 +50,53 @@ double CA::br(int x, int y)
 {
     return p_0 * ( 1.0 - r(x, y) / (R_max - K_c) );
 }
-
+#include <iostream>
 double CA::R_t()
 {
-    // TODO average radius of the tumor
+    double sum = 0;
+    long point_count = 0;
+    for (int y = 0; y < X; ++y)
+    {
+        int x = 0;
+        for (; getOld(x, y) != Cell::PC && x < X/2; ++x)
+            ;
+        if (getOld(x, y) == Cell::PC)
+        {
+            sum += r(x, y);
+            ++point_count;
+
+            x = X - 1;
+            for (; getOld(x, y) != Cell::PC && x > X/2; --x)
+                ;
+            if (getOld(x, y) == Cell::PC)
+            {
+                sum += r(x, y);
+                ++point_count;
+            }
+        }
+    }
+    for (int x = 0; x < X; ++x)
+    {
+        int y = 0;
+        for (; getOld(x, y) != Cell::PC && y < X/2; ++y)
+            ;
+        if (getOld(x, y) == Cell::PC)
+        {
+            sum += r(x, y);
+            ++point_count;
+            y = X - 1;
+            for (; getOld(x, y) != Cell::PC && y > X/2; --y)
+                ;
+            if (getOld(x, y) == Cell::PC)
+            {
+                sum += r(x, y);
+                ++point_count;
+            }
+        }
+    }
+
+    std::cout << sum/point_count << std::endl;
+    return sum / point_count;
 }
 
 double CA::W_p()
@@ -81,6 +124,7 @@ void CA::init()
 
 void CA::step()
 {
+    R_t();
     for (int y = 1; y < X-1; ++y)
     {
         for (int x = 1; x < X-1; ++x)
@@ -110,9 +154,9 @@ void CA::step()
         }
     }
 
-    for (int y = 1; y < X-1; ++y)
+    for (int y = 0; y < X; ++y)
     {
-        for (int x = 1; x < X-1; ++x)
+        for (int x = 0; x < X; ++x)
         {
             board_old[x][y] = board[x][y];
         }
@@ -177,11 +221,13 @@ void CA::rulePC(int x, int y)
     {
         std::pair<int, int> idx = random_choice(indices);
 
-        if (br(x, y))
+        if (probability(br(x, y)))
         {
             setCell(idx.first, idx.second, Cell::PC);
         }
     }
+
+    // TODO W_p 
 }
 
 void CA::ruleQC(int x, int y)

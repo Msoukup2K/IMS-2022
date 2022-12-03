@@ -20,6 +20,10 @@ void probability_init()
 
 bool probability(double prob)
 {
+    if (prob <= 0.0f)
+    {
+        return false;
+    }
     return ((1.0f * std::rand()) / RAND_MAX) <= prob;
 }
 

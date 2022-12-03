@@ -50,7 +50,7 @@ private:
 
     double r(int x, int y); // distance from center
     double br(int x, int y); // probability of diviion of PC
-    double R_t(); // average radius of the tumor
+    double R_t(); // average radius of the tumor, rough approximation (error around 1)
     double W_p(); // thickness of proliferating cancerous cells
 
     // rules:
