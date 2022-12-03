@@ -125,14 +125,17 @@ void CA::neighbors(int x, int y)
 void CA::init()
 {
     initCell(X/2, X/2, Cell::PC);
+    ++nPC;
 }
 
 void CA::step()
 {
-    if (time_step >= 150)
+    /*
+    if (time_step >= 25)
     {
         return;
     }
+    */
     ++time_step;
     R_t_calc();
     W_p_calc();
@@ -172,6 +175,10 @@ void CA::step()
             board_old[x][y] = board[x][y];
         }
     }
+    nT += nT_diff;
+    nT_diff = 0;
+    nPC += nPC_diff;
+    nPC_diff = 0;
 }
 
 void CA::rulePC(int x, int y)
@@ -220,7 +227,7 @@ void CA::rulePC(int x, int y)
             break;
         }
 
-        if (neighborhood[i].type == Cell::ES || neighborhood[i].type == Cell::NoC)
+        if (neighborhood[i].type == Cell::ES)
         {
             indices.push_back(std::make_pair(x+xo, y+yo));
         }
@@ -231,11 +238,14 @@ void CA::rulePC(int x, int y)
         std::pair<int, int> idx = random_choice(indices);
         setCell(x, y, Cell::PC);
         setCell(idx.first, idx.second, Cell::PC);
+        ++nT_diff;
+        ++nPC_diff;
     }
 
     if (++get(x, y).age >= age_threshold && r(x, y) < R_t - W_p)
     {
         setCell(x, y, Cell::QC);
+        --nPC_diff;
     }
 }
 
@@ -249,12 +259,61 @@ void CA::ruleQC(int x, int y)
     else if (dist > R_t - W_p)
     {
         setCell(x, y, Cell::PC);
+        ++nPC_diff;
     }
 }
 
 void CA::ruleIC(int x, int y)
 {
-    (void)x;(void)y;
+    std::vector<std::pair<int, int>> indices{};
+    int xo{};
+    int yo{};
+    for (int i = 0; i < 8; ++i)
+    {
+        switch (i)
+        {
+        case 0:
+            xo = -1;
+            yo = -1;
+            break;
+        case 1:
+            xo = 0;
+            yo = -1;
+            break;
+        case 2:
+            xo = +1;
+            yo = -1;
+            break;
+        case 3:
+            xo = +1;
+            yo = 0;
+            break;
+        case 4:
+            xo = +1;
+            yo = +1;
+            break;
+        case 5:
+            xo = 0;
+            yo = +1;
+            break;
+        case 6:
+            xo = -1;
+            yo = +1;
+            break;
+        case 7:
+            xo = -1;
+            yo = 0;
+            break;
+        
+        default:
+            break;
+        }
+
+        if (neighborhood[i].type == Cell::PC)
+        {
+            indices.push_back(std::make_pair(x+xo, y+yo));
+        }
+    }
 }
 
 /******************************************

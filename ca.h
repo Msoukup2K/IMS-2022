@@ -13,8 +13,7 @@
 
 struct Cell {
     enum Type {
-        ES = 0, // empty space
-        NoC = 0, // normal cell
+        ES = 0, // empty space or normal cell
         PC = 1, // proliferative tumor cell
         QC = 2, // quiscent cell
         NeC = 3, // necrotic cell
@@ -42,12 +41,20 @@ private:
 
         from bottom left corner -- corresponding to visualization in the animation
     */
+    
+    // cell counts
+    int nT_diff = 0;
+    int nPC_diff = 0;
+
+    int nT = 0;
+    int nPC = 0;
+    int nIC = 0;
 
     // parameters:
     int time_step = 0;
     int age_threshold = 15;
     double p_0 = 0.7; // base probability of division of PC
-    double a_p = 0.42; // base living tumor thickness
+    double a_p = 0.22; // base living tumor thickness
     double b_n = 0.53; // base necrotic thickness
     double R_max = 37.5; // maximum tumor extent
     double p_dT = 0.5; // tumor death constant

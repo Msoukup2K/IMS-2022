@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     MODEL->init();
 
     Animation animation{argc, argv, "IMS 2022/23 -- simulace", MODEL};
-    animation.setFreq(1);
+    animation.setFreq(100);
 
     animation.run();
 
