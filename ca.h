@@ -42,10 +42,11 @@ private:
         from bottom left corner -- corresponding to visualization in the animation
     */
     
-    // cell counts
+    // cell count differents
     int nT_diff = 0;
     int nPC_diff = 0;
 
+    // cell counts
     int nT = 0;
     int nPC = 0;
     int nIC = 0;

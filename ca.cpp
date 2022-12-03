@@ -130,12 +130,12 @@ void CA::init()
 
 void CA::step()
 {
-    /*
+#if 0
     if (time_step >= 25)
     {
         return;
     }
-    */
+#endif
     ++time_step;
     R_t_calc();
     W_p_calc();
