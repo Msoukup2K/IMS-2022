@@ -13,6 +13,8 @@
 #ifndef CA_H_
 #define CA_H_
 
+#include <fstream>
+
 struct Cell {
     enum Type {
         ES = 0, // empty space or normal cell
@@ -43,6 +45,9 @@ private:
 
         from bottom left corner -- corresponding to visualization in the animation
     */
+
+    // logfile stream
+    std::ofstream log;
     
     // cell count differents
     int nT_diff = 0;
@@ -74,6 +79,7 @@ private:
     double R_t{}; // average radius of the tumor, rough approximation (error around 1)
     double W_p{}; // thickness of proliferating cancerous cells
     double R_n{}; // thickness of necrotic cells
+    double spawn_rate{}; // IC spawn rate
 
     // parameters:
     int age_threshold = 10; // influences how fast PCs change to QCs
@@ -93,6 +99,7 @@ private:
     void R_t_calc(); // calculate R_t for the current step (tumor radius)
     void W_p_calc(); // calculate W_p for the current step (prolif. thickness)
     void R_n_calc(); // calculate R_n for the current step (necro. thickness)
+    void spawn_rate_calc(); // calculate spawn_rate of ICs for the current step
 
     // rules:
     void rulePC(int x, int y);
@@ -103,6 +110,9 @@ private:
 
     // set neighborhood to the neighbors of the cell at (x, y)
     void neighbors(int x, int y);
+
+    // write values of the current iteration to the logfile
+    void writeLog();
 
 public:
     int size();
@@ -134,7 +144,11 @@ public:
     bool setTherapyResistanceQC(double res);
     bool setTherapyResistanceIC(double res);
 
+    // turn on killing cells during chemotherapy (bad implementation)
     void setTherapyCellDeath();
+
+    // set the log output
+    void setLog(std::string filename);
 
     explicit CA(int width);
     ~CA();

@@ -11,6 +11,7 @@
 *******************************************/
 
 #include <iostream>
+#include <fstream>
 #include <getopt.h>
 
 #include "animation.h"
@@ -31,7 +32,6 @@ int main(int argc, char *argv[])
     probability_init();
 
     MODEL = new CA{180};
-    MODEL->init();
 
     int opt{};
     double animation_freq = 10;
@@ -45,12 +45,12 @@ int main(int argc, char *argv[])
             {
             case 'h':
                 std::cout << "VUT FIT IMS projekt 2022\n"
-                    << "model a simulace růrstu rakovinného nádoru, reakce imunitních buněk a zjednodušená chemoterapie\n\n"
+                    << "model a simulace růstu rakovinného nádoru, reakce imunitních buněk a zjednodušená chemoterapie\n\n"
                     << "použití: ./run [-h] [-E] [-f <logfile>] [-F <refresh_frequency>] [-a <age_threshold>] [-D <age_threshold>]\n"
                     << "\t\t[-K <carrying_cap>] [-P <resistance>] [-Q <resistance>] [-I <resistance>] [-p <chemo_doses>]\n\n"
                     << "Pokud není nastaven žádný z přepínačů -E, -K, -p, program simuluje růst nádoru bez chemoterapie.\n"
                     << "Pokud některý z těchto přepínačů nastavený je, pak jsou simulovány efekty chemoterapie podle přepínače/ů.\n\n"
-                    << "Ovládání klávesnicí:\n"
+                    << "Ovládání klávesnicí:\n\n"
                     << "\tšipky nahoru/doprava\tF += 1 Hz\n"
                     << "\tšipky dolů/doleva\tF -= 1 Hz\n"
                     << "\tMezerník\t\tpause/unpause\n\n"
@@ -60,7 +60,8 @@ int main(int argc, char *argv[])
                     << "\t-E\t\t\t"
                     << "Zapne usmrcování buňek chemoterapií. Jedná se pouze o triviální řešení, které pravděpodobně neodpovídá realitě.\n\n"
                     << "\t-f <logfile>\t\t"
-                    << "Výpisy aplikace jsou zapisovány na konec souboru logfile. Pokud není zapnut, aplikace vypisuje na standardní výstup.\n\n"
+                    << "Výpisy aplikace jsou zapisovány do souboru logfile. Pokud soubor se stejným názvem již existuje, je jeho obsah přepsán.\n"
+                    << "\t\t\t\tPokud není přepínač zapnut, aplikace vypisuje na standardní výstup.\n\n"
                     << "\t-F <refresh_frequency>\t"
                     << "Nastaví obnovovací frekvenci animace v Hz. Bez použití přepínače je frekvence 10 Hz.\n\n"
                     << "\t-a <age_threshold>\t"
@@ -85,7 +86,7 @@ int main(int argc, char *argv[])
                 break;
 
             case 'f':
-                // TODO logging
+                MODEL->setLog(optarg);
                 break;
 
             case 'F':
@@ -159,6 +160,7 @@ int main(int argc, char *argv[])
     }
     
 
+    MODEL->init();
     Animation animation{argc, argv, "IMS 2022/23 -- simulace", MODEL};
     animation.setFreq(animation_freq);
 

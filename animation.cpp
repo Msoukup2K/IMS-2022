@@ -129,6 +129,11 @@ void defaultRender(void)
 
 void keyboardChangeFreq(int key, int, int)
 {
+    if (ANIMATION_PERIOD1000 == 0)
+    {
+        return;
+    }
+
     double freq = 1000.0 / ANIMATION_PERIOD1000;
     switch (key)
     {
@@ -156,6 +161,11 @@ void keyboardChangeFreq(int key, int, int)
 
 void keyboardPause(unsigned char key, int, int)
 {
+    if (ANIMATION_PERIOD1000 == 0)
+    {
+        return;
+    }
+
     const double STOPVAL = 1'000'000'000'000;
     static double freq{};
     if (key == ' ')

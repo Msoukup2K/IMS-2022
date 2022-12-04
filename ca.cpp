@@ -15,9 +15,10 @@
 #include <cmath>
 #include <utility>
 #include <vector>
+#include <sstream>
+#include <iostream>
 #include "probability.h"
 
-#include <iostream>
 
 CA::CA(int size) : X{size % 2 == 0 ? size+1 : size}
 {
@@ -133,6 +134,11 @@ void CA::R_n_calc()
     R_n = R_t - b_n * pow(R_t, 2.0/3.0) - W_p;
 }
 
+void CA::spawn_rate_calc()
+{
+    spawn_rate = (1.0 * (nVic - nDef) * nPC) / (nT);
+}
+
 
 void CA::neighbors(int x, int y)
 {
@@ -221,6 +227,36 @@ void CA::setTherapyCellDeath()
     treatment_TRIVIAL_IMPLEMENTATION = true;
 }
 
+void CA::setLog(std::string filename)
+{
+    log.open(filename);
+}
+
+void CA::writeLog()
+{
+    std::stringstream msg{};
+
+    msg << "časový krok: " << time_step << "\n"
+        << "\tpočet buňek nádoru:\t\t" << nT << "\n"
+        << "\tpočet P buněk:\t\t\t" << nPC << "\n"
+        << "\tpočet I buněk:\t\t\t" << nIC << "\n"
+        << "\tpoloměr tumoru:\t\t\t" << R_t << "\n"
+        << "\ttloušťka tkáně P buněk:\t\t" << W_p << "\n"
+        << "\ttloušťka nekrotické tkáně:\t" << R_n << "\n"
+        << "\ttempo přírůstku I buněk:\t" << spawn_rate << "\n"
+        << std::endl;
+    ;
+
+    if (log.is_open())
+    {
+        log << msg.str();
+    }
+    else
+    {
+        std::cout << msg.str();
+    }
+}
+
 void CA::init()
 {
     initCell(X/2, X/2, Cell::PC);
@@ -248,20 +284,16 @@ void CA::init()
             ++nIC;
         }
     }
+    writeLog();
 }
 
 void CA::step()
 {
-#if 0
-    if (time_step >= 100)
-    {
-        return;
-    }
-#endif
     ++time_step;
     R_t_calc();
     W_p_calc();
     R_n_calc();
+    spawn_rate_calc();
 
     for (int y = 1; y < X-1; ++y)
     {
@@ -311,6 +343,8 @@ void CA::step()
     nPC_diff = 0;
     nIC += nIC_diff;
     nIC_diff = 0;
+
+    writeLog();
 }
 
 void CA::rulePC(int x, int y)
@@ -485,10 +519,9 @@ void CA::ruleIC(int x, int y)
 
         indicesES.push_back(std::make_pair(x, y));
         idx = random_choice(indicesES);
-        double spawn_rate = (1.0 * (nVic - nDef) * nPC) / (nT);
         if (get(idx.first, idx.second).type == Cell::ES)
         {
-            if (probability((spawn_rate * 50.0) / (nIC * r(x, y))))
+            if (probability((spawn_rate * R_t) / (nIC * r(x, y))))
             {
                 setCell(idx.first, idx.second, Cell::IC);
                 ++nIC_diff;
