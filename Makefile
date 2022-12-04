@@ -15,13 +15,16 @@ LDLIBS = -lGL -lGLU -lglut
 TARGET = cancersim
 PACK_TARGET = 11_xsouku15_xkucer0h.zip
 
-.PHONY: all clean pack
+.PHONY: all clean pack run
 
 #################################################
 
 SRCS = $(wildcard *.cpp)
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
 DEPS = $(patsubst %.cpp, %.d, $(SRCS))
+
+run: $(TARGET)
+	./$(TARGET)
 
 all: $(TARGET)
 
