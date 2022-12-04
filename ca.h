@@ -70,10 +70,6 @@ private:
     const double R_max = 37.5; // maximum tumor extent
     const double p_dT = 0.5; // tumor death constant
     const double p_dI = 0.2; // immune death constant
-    const double k_PC = 0.8; // PC death rate due to treatment
-    const double k_QC = 0.4; // QC death rate due to treatment
-    const double k_IC = 0.6; // IC death rate due to treatment
-    const double PK = 1.0; // pharmacokinetics
 
     // calculated every step:
     double R_t{}; // average radius of the tumor, rough approximation (error around 1)
