@@ -14,7 +14,7 @@
 
 
 CA *ANIMATION_MODEL = nullptr;
-double ANIMATION_FREQUENCY = 1000;
+double ANIMATION_PERIOD1000 = 1000;
 
 
 /*
@@ -118,13 +118,58 @@ void defaultRender(void)
 
     int elapsed = glutGet(GLUT_ELAPSED_TIME);
     static int timepoint = elapsed;
-    if (elapsed - timepoint > ANIMATION_FREQUENCY)
+    if (elapsed - timepoint > ANIMATION_PERIOD1000)
     {
         ANIMATION_MODEL->step();
         timepoint = elapsed;
     }
 
     glutSwapBuffers();
+}
+
+void keyboardChangeFreq(int key, int, int)
+{
+    double freq = 1000.0 / ANIMATION_PERIOD1000;
+    switch (key)
+    {
+    case GLUT_KEY_RIGHT:
+    case GLUT_KEY_UP:
+        if (freq < 100)
+        {
+            freq += 1.0;
+        }
+        break;
+
+    case GLUT_KEY_LEFT:
+    case GLUT_KEY_DOWN:
+        if (freq > 1.1)
+        {
+            freq -= 1.0;
+        }   
+        break;
+    
+    default:
+        break;
+    }
+    ANIMATION_PERIOD1000 = 1000.0 / freq;
+}
+
+void keyboardPause(unsigned char key, int, int)
+{
+    const double STOPVAL = 1'000'000'000'000;
+    static double freq{};
+    if (key == ' ')
+    {
+        if (ANIMATION_PERIOD1000 == STOPVAL)
+        {
+            ANIMATION_PERIOD1000 = 1000.0 / freq;
+        }
+        else
+        {
+            freq = 1000.0 / ANIMATION_PERIOD1000;
+            ANIMATION_PERIOD1000 = STOPVAL;
+        }
+    }
 }
 
 /*
@@ -148,29 +193,11 @@ Animation::Animation(int argc, char **argv, const char *title, CA *model)
     glutInitWindowSize(window_width, window_width);
     glutCreateWindow(title);
 
-    setDisplayFunc(defaultRender);
-    setReshapeFunc(defaultResize);
-    setIdleFunc(defaultRender);
-}
-
-void Animation::setDisplayFunc(void (*f)(void))
-{
-    glutDisplayFunc(f);
-}
-
-void Animation::setReshapeFunc(void (*f)(int, int))
-{
-    glutReshapeFunc(f);
-}
-
-void Animation::setIdleFunc(void (*f)(void))
-{
-    glutIdleFunc(f);
-}
-
-void Animation::run()
-{
-    glutMainLoop();
+    glutDisplayFunc(defaultRender);
+    glutReshapeFunc(defaultResize);
+    glutIdleFunc(defaultRender);
+    glutSpecialFunc(keyboardChangeFreq);
+    glutKeyboardFunc(keyboardPause);
 }
 
 /******************************************

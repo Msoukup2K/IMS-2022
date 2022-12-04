@@ -18,26 +18,27 @@
 #include "ca.h"
 
 extern CA *ANIMATION_MODEL;
-extern double ANIMATION_FREQUENCY;
+extern double ANIMATION_PERIOD1000;
 
 class Animation
 {
 private:
     
 public:
-    void setDisplayFunc(void (*f)(void));
-    void setReshapeFunc(void (*f)(int, int));
-    void setIdleFunc(void (*f)(void));
     void run();
-
     void setFreq(double freq);
 
     Animation(int argc, char **argv, const char *title, CA *model);
 };
 
+inline void Animation::run()
+{
+    glutMainLoop();
+}
+
 inline void Animation::setFreq(double freq)
 {
-    ANIMATION_FREQUENCY = 1000.0 / freq;
+    ANIMATION_PERIOD1000 = 1000.0 / freq;
 }
 
 #endif // ANIMATION_H_
