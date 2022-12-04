@@ -222,9 +222,15 @@ bool CA::setTherapyResistanceIC(double res)
     return true;
 }
 
-void CA::setTherapyCellDeath()
+bool CA::setTherapyCellDeath(int time)
 {
+    if (time <= 0)
+    {
+        return false;
+    }
     treatment_TRIVIAL_IMPLEMENTATION = true;
+    killtime = time;
+    return true;
 }
 
 void CA::setLog(std::string filename)
@@ -347,8 +353,43 @@ void CA::step()
     writeLog();
 }
 
+double CA::simpleDeathProb(Cell::Type type)
+{
+    double probab{};
+    switch (type)
+    {
+    case Cell::PC:
+        probab = 4 / (random01() * gamma_PC);
+        break;
+
+    case Cell::QC:
+        probab = 8 / (random01() * gamma_QC);
+        break;
+
+    case Cell::IC:
+        probab = 6 / (random01() * gamma_IC);
+        break;
+    
+    default:
+        probab = 0;
+        break;
+    }
+
+    return probab / (200.0*(time_step - killtime));
+}
+
 void CA::rulePC(int x, int y)
 {
+    if (treatment_TRIVIAL_IMPLEMENTATION
+            && killtime < time_step
+            && probability(simpleDeathProb(Cell::PC)))
+    {
+        setCell(x, y, Cell::US);
+        --nPC_diff;
+        --nT_diff;
+        return;
+    }
+
     std::vector<std::pair<int, int>> indices{};
     int xo{};
     int yo{};
@@ -417,6 +458,15 @@ void CA::rulePC(int x, int y)
 
 void CA::ruleQC(int x, int y)
 {
+    if (treatment_TRIVIAL_IMPLEMENTATION
+            && killtime < time_step
+            && probability(simpleDeathProb(Cell::QC)))
+    {
+        setCell(x, y, Cell::US);
+        --nT_diff;
+        return;
+    }
+
     double dist = r(x, y);
     if (dist < R_n)
     {
@@ -431,6 +481,15 @@ void CA::ruleQC(int x, int y)
 
 void CA::ruleIC(int x, int y)
 {
+    if (treatment_TRIVIAL_IMPLEMENTATION
+            && killtime < time_step
+            && probability(simpleDeathProb(Cell::IC)))
+    {
+        setCell(x, y, Cell::US);
+        --nIC_diff;
+        return;
+    }
+
     std::vector<std::pair<int, int>> indicesPC{};
     std::vector<std::pair<int, int>> indicesES{};
     int xo{};

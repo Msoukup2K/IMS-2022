@@ -34,19 +34,19 @@ int main(int argc, char *argv[])
     MODEL = new CA{180};
 
     int opt{};
-    double animation_freq = 10;
+    double animation_freq = 5;
     bool opt_p = false;
     int opt_p_val = -1;
     try
     {
-        while ((opt = getopt(argc, argv, ":f:F:a:D:K:P:Q:I:p:Eh")) != -1)
+        while ((opt = getopt(argc, argv, ":f:F:a:D:K:P:Q:I:p:E:h")) != -1)
         {
             switch (opt)
             {
             case 'h':
                 std::cout << "VUT FIT IMS projekt 2022\n"
                     << "model a simulace růstu rakovinného nádoru, reakce imunitních buněk a zjednodušená chemoterapie\n\n"
-                    << "použití: ./run [-h] [-E] [-f <logfile>] [-F <refresh_frequency>] [-a <age_threshold>] [-D <age_threshold>]\n"
+                    << "použití: ./run [-h] [-E <time>] [-f <logfile>] [-F <refresh_frequency>] [-a <age_threshold>] [-D <age_threshold>]\n"
                     << "\t\t[-K <carrying_cap>] [-P <resistance>] [-Q <resistance>] [-I <resistance>] [-p <chemo_doses>]\n\n"
                     << "Pokud není nastaven žádný z přepínačů -E, -K, -p, program simuluje růst nádoru bez chemoterapie.\n"
                     << "Pokud některý z těchto přepínačů nastavený je, pak jsou simulovány efekty chemoterapie podle přepínače/ů.\n\n"
@@ -57,13 +57,14 @@ int main(int argc, char *argv[])
                     << "přepínače:\n\n"
                     << "\t-h\t\t\t"
                     << "Vypíše tuto nápovědu a ukončí program.\n\n"
-                    << "\t-E\t\t\t"
-                    << "Zapne usmrcování buňek chemoterapií. Jedná se pouze o triviální řešení, které pravděpodobně neodpovídá realitě.\n\n"
+                    << "\t-E <time>\t\t"
+                    << "Zapne usmrcování buňek chemoterapií po uplynutí času time.\n"
+                    << "\t\t\t\tJedná se pouze o triviální řešení, které pravděpodobně neodpovídá realitě.\n\n"
                     << "\t-f <logfile>\t\t"
                     << "Výpisy aplikace jsou zapisovány do souboru logfile. Pokud soubor se stejným názvem již existuje, je jeho obsah přepsán.\n"
                     << "\t\t\t\tPokud není přepínač zapnut, aplikace vypisuje na standardní výstup.\n\n"
                     << "\t-F <refresh_frequency>\t"
-                    << "Nastaví obnovovací frekvenci animace v Hz. Bez použití přepínače je frekvence 10 Hz.\n\n"
+                    << "Nastaví obnovovací frekvenci animace v Hz. Bez použití přepínače je frekvence 5 Hz.\n\n"
                     << "\t-a <age_threshold>\t"
                     << "Nastaví věkovou hranici pro P buňky. Po dosažení daného věku (a dalších podmínek) se změní na Q buňky. default=10\n\n"
                     << "\t-D <age_threshold>\t"
@@ -131,7 +132,8 @@ int main(int argc, char *argv[])
                 break;
 
             case 'E':
-                MODEL->setTherapyCellDeath();
+                if (!MODEL->setTherapyCellDeath(std::stoi(optarg)))
+                    error_exit("začátek úmrtí buněk musí být větší než 0");
                 break;
 
             case ':':

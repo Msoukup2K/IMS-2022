@@ -86,12 +86,13 @@ private:
     int n_dead = 5; // influences how fast USs change to DCs
     double K_c = 0.0 - R_max / 2.0; // chemotherapy effect on the division
     double gamma_PC = 0.55; // up to 0.95; PC resistance to treatment
-    double gamma_QC = 0.0; // up to 0.4; QC resistance to treatment
-    double gamma_IC = 0.0; // up to 0.7; IC resistance to treatment
+    double gamma_QC = 0.2; // up to 0.4; QC resistance to treatment
+    double gamma_IC = 0.35; // up to 0.7; IC resistance to treatment
     double p_0 = bp_0; // probability of division of PC
 
     // turn on cell death due to treatment, not really reflecting reality
     bool treatment_TRIVIAL_IMPLEMENTATION = false;
+    int killtime{};
 
     // functions calculating certain values:
     double r(int x, int y); // distance from center
@@ -100,6 +101,10 @@ private:
     void W_p_calc(); // calculate W_p for the current step (prolif. thickness)
     void R_n_calc(); // calculate R_n for the current step (necro. thickness)
     void spawn_rate_calc(); // calculate spawn_rate of ICs for the current step
+
+    // very simple function for calculating death probability
+    // not very realistic
+    double simpleDeathProb(Cell::Type type);
 
     // rules:
     void rulePC(int x, int y);
@@ -145,7 +150,7 @@ public:
     bool setTherapyResistanceIC(double res);
 
     // turn on killing cells during chemotherapy (bad implementation)
-    void setTherapyCellDeath();
+    bool setTherapyCellDeath(int time);
 
     // set the log output
     void setLog(std::string filename);
