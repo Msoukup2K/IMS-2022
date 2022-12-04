@@ -20,13 +20,18 @@ void probability_init()
     std::srand(std::time(nullptr));
 }
 
+double random01()
+{
+    return (1.0f * std::rand()) / RAND_MAX;
+}
+
 bool probability(double prob)
 {
     if (prob <= 0.0f)
     {
         return false;
     }
-    return ((1.0f * std::rand()) / RAND_MAX) <= prob;
+    return random01() <= prob;
 }
 
 std::pair<int, int> random_choice(std::vector<std::pair<int, int>> indices)

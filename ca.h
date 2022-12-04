@@ -56,26 +56,43 @@ private:
     int nVic = 0; // number of IC victories over PCs
     int nDef = 0; // number of IC defeats by PCs
 
+    int time_step = 0; // number of the current step
+
+    // constatns:
+    const double bp_0 = 0.7; // base probability of division of PC
+    const double a_p = 0.42; // base living tumor thickness
+    const double b_n = 0.53; // base necrotic thickness
+    const double R_max = 37.5; // maximum tumor extent
+    const double p_dT = 0.5; // tumor death constant
+    const double p_dI = 0.2; // immune death constant
+    const double k_PC = 0.8; // PC death rate due to treatment
+    const double k_QC = 0.4; // QC death rate due to treatment
+    const double k_IC = 0.6; // IC death rate due to treatment
+    const double PK = 1.0; // pharmacokinetics
+
+    // calculated every step:
+    double R_t{}; // average radius of the tumor, rough approximation (error around 1)
+    double W_p{}; // thickness of proliferating cancerous cells
+    double R_n{}; // thickness of necrotic cells
+
     // parameters:
-    int time_step = 0;
-    int age_threshold = 10;
-
-    double p_0 = 0.7; // base probability of division of PC
-    double a_p = 0.42; // base living tumor thickness
-    double b_n = 0.53; // base necrotic thickness
-    double R_max = 37.5; // maximum tumor extent
-    double p_dT = 0.5; // tumor death constant
-    double p_dI = 0.2; // immune death constant
+    int age_threshold = 10; // influences how fast PCs change to QCs
+    int n_dead = 5; // influences how fast USs change to DCs
     double K_c = 0.0 - R_max / 2.0; // chemotherapy effect on the division
-    double R_t; // average radius of the tumor, rough approximation (error around 1)
-    double W_p; // thickness of proliferating cancerous cells
-    double R_n; // thickness of necrotic cells
+    double gamma_PC = 0.55; // up to 0.95; PC resistance to treatment
+    double gamma_QC = 0.0; // up to 0.4; QC resistance to treatment
+    double gamma_IC = 0.0; // up to 0.7; IC resistance to treatment
+    double p_0 = bp_0; // probability of division of PC
 
+    // turn on cell death due to treatment, not really reflecting reality
+    bool treatment_TRIVIAL_IMPLEMENTATION = false;
+
+    // functions calculating certain values:
     double r(int x, int y); // distance from center
     double br(int x, int y); // probability of diviion of PC
-    void R_t_calc(); // calculate R_t for the current step
-    void W_p_calc(); // calculate W_p for the current step
-    void R_n_calc(); // calculate R_n for the current step
+    void R_t_calc(); // calculate R_t for the current step (tumor radius)
+    void W_p_calc(); // calculate W_p for the current step (prolif. thickness)
+    void R_n_calc(); // calculate R_n for the current step (necro. thickness)
 
     // rules:
     void rulePC(int x, int y);
@@ -100,6 +117,24 @@ public:
 
     void init();
     void step();
+
+    double upTTCC(); // upper limit of therapy tumor carrying capacity
+
+    // change the age threshold
+    bool setCellAgeThreshold(int threshold);
+    // change the length of USs' lifespan
+    bool setNDead(int ndead);
+    // change division probability to reflect therapy effects
+    bool setTherapyDivisionProbability(int doses);
+    // change tumor carrying capacity to reflect therapy effects
+    bool setTherapyTumorCarryingCapacity(int capacity);
+
+    // set resistances; QC and IC only have effect when simulating cell death by treatment
+    bool setTherapyResistancePC(double res);
+    bool setTherapyResistanceQC(double res);
+    bool setTherapyResistanceIC(double res);
+
+    void setTherapyCellDeath();
 
     explicit CA(int width);
     ~CA();
@@ -139,6 +174,11 @@ inline void CA::moveCell(int x0, int y0, int x1, int y1)
         board[x1][y1] = board[x0][y0];
         board[x0][y0] = Cell{};
     }
+}
+
+inline double CA::upTTCC()
+{
+    return R_max / 2.0;
 }
 
 #endif // CA_H_

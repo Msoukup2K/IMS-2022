@@ -17,6 +17,8 @@
 
 void probability_init();
 
+double random01();
+
 bool probability(double prob);
 
 std::pair<int, int> random_choice(std::vector<std::pair<int, int>> indices);

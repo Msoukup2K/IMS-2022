@@ -146,6 +146,81 @@ void CA::neighbors(int x, int y)
     neighborhood[7] = board_old[x-1][y];
 }
 
+bool CA::setCellAgeThreshold(int threshold)
+{
+    if (threshold <= 0)
+    {
+        return false;
+    }
+    age_threshold = threshold;
+    return true;
+}
+
+bool CA::setNDead(int ndead)
+{
+    if (ndead <= 0)
+    {
+        return false;
+    }
+    n_dead = ndead;
+    return true;
+}
+
+bool CA::setTherapyDivisionProbability(int doses)
+{
+    if (doses <= 0)
+    {
+        return false;
+    }
+    p_0 = (bp_0 * gamma_PC) / pow(doses, 1.0 / n_dead);
+    return true;
+}
+
+bool CA::setTherapyTumorCarryingCapacity(int capacity)
+{
+    if (capacity < 0 || capacity > R_max / 2.0)
+    {
+        return false;
+    }
+    K_c = capacity - R_max / 2.0;
+    return true;
+}
+
+bool CA::setTherapyResistancePC(double res)
+{
+    if (res < 0.0 || res > 0.95)
+    {
+        return false;
+    }
+    gamma_PC = res;
+    return true;
+}
+
+bool CA::setTherapyResistanceQC(double res)
+{
+    if (res < 0.0 || res > 0.4)
+    {
+        return false;
+    }
+    gamma_PC = res;
+    return true;
+}
+
+bool CA::setTherapyResistanceIC(double res)
+{
+    if (res < 0.0 || res > 0.7)
+    {
+        return false;
+    }
+    gamma_PC = res;
+    return true;
+}
+
+void CA::setTherapyCellDeath()
+{
+    treatment_TRIVIAL_IMPLEMENTATION = true;
+}
+
 void CA::init()
 {
     initCell(X/2, X/2, Cell::PC);
@@ -177,9 +252,6 @@ void CA::init()
 
 void CA::step()
 {
-//    std::cout << "k: " << 1.f*nIC/(X*X) << "\tnT/X*X: " << 1.f*nT/(X*X) << "\tnPT/nT: " << 1.f*nPC/nT << std::endl;
-//    std::cout << 1.f*nIC/(X*X)*((1.f*nT/(X*X)) * (1.f*nPC/nT)) << std::endl;
-//    std::cout << "nIC: " << nIC << "\tnT: " << nT << "\tnPC: " << nPC << std::endl;
 #if 0
     if (time_step >= 100)
     {
@@ -427,7 +499,7 @@ void CA::ruleIC(int x, int y)
 
 void CA::ruleUS(int x, int y)
 {
-    if (probability(++get(x, y).age / age_threshold))
+    if (++get(x, y).age > n_dead)
     {
         setCell(x, y, Cell::DC);
     }

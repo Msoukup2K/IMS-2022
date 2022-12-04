@@ -18,7 +18,7 @@
 #include "ca.h"
 
 extern CA *ANIMATION_MODEL;
-extern int ANIMATION_FREQUENCY;
+extern double ANIMATION_FREQUENCY;
 
 class Animation
 {
@@ -30,14 +30,14 @@ public:
     void setIdleFunc(void (*f)(void));
     void run();
 
-    void setFreq(int freq);
+    void setFreq(double freq);
 
     Animation(int argc, char **argv, const char *title, CA *model);
 };
 
-inline void Animation::setFreq(int freq)
+inline void Animation::setFreq(double freq)
 {
-    ANIMATION_FREQUENCY = freq;
+    ANIMATION_FREQUENCY = 1000.0 / freq;
 }
 
 #endif // ANIMATION_H_
