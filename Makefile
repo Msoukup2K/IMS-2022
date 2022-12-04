@@ -23,10 +23,10 @@ SRCS = $(wildcard *.cpp)
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
 DEPS = $(patsubst %.cpp, %.d, $(SRCS))
 
+all: $(TARGET)
+
 run: $(TARGET)
 	./$(TARGET)
-
-all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CXX) $^ -o $@ $(LDLIBS)
