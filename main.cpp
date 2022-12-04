@@ -11,7 +11,6 @@
 *******************************************/
 
 #include <iostream>
-#include <fstream>
 #include <getopt.h>
 
 #include "animation.h"
@@ -46,7 +45,7 @@ int main(int argc, char *argv[])
             case 'h':
                 std::cout << "VUT FIT IMS projekt 2022\n"
                     << "model a simulace růstu rakovinného nádoru, reakce imunitních buněk a zjednodušená chemoterapie\n\n"
-                    << "použití: ./run [-h] [-E <time>] [-f <logfile>] [-F <refresh_frequency>] [-a <age_threshold>] [-D <age_threshold>]\n"
+                    << "použití: ./cancersim [-h] [-E <time>] [-f <logfile>] [-F <refresh_frequency>] [-a <age_threshold>] [-D <age_threshold>]\n"
                     << "\t\t[-K <carrying_cap>] [-P <resistance>] [-Q <resistance>] [-I <resistance>] [-p <chemo_doses>]\n\n"
                     << "Pokud není nastaven žádný z přepínačů -E, -K, -p, program simuluje růst nádoru bez chemoterapie.\n"
                     << "Pokud některý z těchto přepínačů nastavený je, pak jsou simulovány efekty chemoterapie podle přepínače/ů.\n\n"

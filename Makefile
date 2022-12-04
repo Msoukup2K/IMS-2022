@@ -4,7 +4,7 @@
 # IMS 2022/23 -- 11. Model pomocí celulárního automatu
 # 
 # author: Vojtech Kucera (xkucer0h)
-# date:   2022-11-16
+# date:   2022-12-04
 # 
 #################################################
 
@@ -12,7 +12,8 @@ CXX = g++
 CXXFLAGS = -std=c++17 -MMD -Wall -Wextra -pedantic
 LDLIBS = -lGL -lGLU -lglut
 
-TARGET = run
+TARGET = cancersim
+PACK_TARGET = 11_xsouku15_xkucer0h.zip
 
 .PHONY: all clean pack
 
@@ -31,8 +32,9 @@ $(TARGET): $(OBJS)
 
 #################################################
 
-pack: *.cpp *.h Makefile README.md
-	zip 11_xsouku15_xkucer0h.zip $^
+pack: *.cpp *.h Makefile zprava.pdf
+	@rm -f $(PACK_TARGET)
+	zip $(PACK_TARGET) $^
 
 clean:
 	rm -f $(OBJS) $(DEPS) $(TARGET)
