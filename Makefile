@@ -35,7 +35,7 @@ $(TARGET): $(OBJS)
 
 #################################################
 
-pack: *.cpp *.h Makefile zprava.pdf logs/*
+pack: *.cpp *.h Makefile zprava.pdf logs/* screenshots/*
 	@rm -f $(PACK_TARGET)
 	zip -r $(PACK_TARGET) $^
 
