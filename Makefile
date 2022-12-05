@@ -10,7 +10,7 @@
 
 CXX = g++
 CXXFLAGS = -std=c++17 -MMD -Wall -Wextra -pedantic
-LDLIBS = -lGL -lGLU -lglut
+LDLIBS = -lGL -lglut
 
 TARGET = cancersim
 PACK_TARGET = 11_xsouku15_xkucer0h.zip
@@ -35,9 +35,9 @@ $(TARGET): $(OBJS)
 
 #################################################
 
-pack: *.cpp *.h Makefile zprava.pdf
+pack: *.cpp *.h Makefile zprava.pdf logs/*
 	@rm -f $(PACK_TARGET)
-	zip $(PACK_TARGET) $^
+	zip -r $(PACK_TARGET) $^
 
 clean:
 	rm -f $(OBJS) $(DEPS) $(TARGET)

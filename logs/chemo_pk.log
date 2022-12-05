@@ -1,0 +1,819 @@
+časový krok: 0
+	počet buňek nádoru:		1
+	počet P buněk:			1
+	počet I buněk:			125
+	poloměr tumoru:			0
+	tloušťka tkáně P buněk:		0
+	tloušťka nekrotické tkáně:	0
+	tempo přírůstku I buněk:	0
+
+časový krok: 1
+	počet buňek nádoru:		1
+	počet P buněk:			1
+	počet I buněk:			125
+	poloměr tumoru:			0
+	tloušťka tkáně P buněk:		0
+	tloušťka nekrotické tkáně:	0
+	tempo přírůstku I buněk:	0
+
+časový krok: 2
+	počet buňek nádoru:		1
+	počet P buněk:			1
+	počet I buněk:			125
+	poloměr tumoru:			0
+	tloušťka tkáně P buněk:		0
+	tloušťka nekrotické tkáně:	0
+	tempo přírůstku I buněk:	0
+
+časový krok: 3
+	počet buňek nádoru:		1
+	počet P buněk:			1
+	počet I buněk:			125
+	poloměr tumoru:			0
+	tloušťka tkáně P buněk:		0
+	tloušťka nekrotické tkáně:	0
+	tempo přírůstku I buněk:	0
+
+časový krok: 4
+	počet buňek nádoru:		2
+	počet P buněk:			2
+	počet I buněk:			125
+	poloměr tumoru:			0
+	tloušťka tkáně P buněk:		0
+	tloušťka nekrotické tkáně:	0
+	tempo přírůstku I buněk:	0
+
+časový krok: 5
+	počet buňek nádoru:		3
+	počet P buněk:			3
+	počet I buněk:			125
+	poloměr tumoru:			0.5
+	tloušťka tkáně P buněk:		0.264583
+	tloušťka nekrotické tkáně:	-0.0984625
+	tempo přírůstku I buněk:	0
+
+časový krok: 6
+	počet buňek nádoru:		4
+	počet P buněk:			4
+	počet I buněk:			125
+	poloměr tumoru:			0.569036
+	tloušťka tkáně P buněk:		0.288409
+	tloušťka nekrotické tkáně:	-0.0833183
+	tempo přírůstku I buněk:	0
+
+časový krok: 7
+	počet buňek nádoru:		4
+	počet P buněk:			4
+	počet I buněk:			125
+	poloměr tumoru:			0.706011
+	tloušťka tkáně P buněk:		0.33301
+	tloušťka nekrotické tkáně:	-0.0472252
+	tempo přírůstku I buněk:	0
+
+časový krok: 8
+	počet buňek nádoru:		5
+	počet P buněk:			5
+	počet I buněk:			125
+	poloměr tumoru:			0.706011
+	tloušťka tkáně P buněk:		0.33301
+	tloušťka nekrotické tkáně:	-0.0472252
+	tempo přírůstku I buněk:	0
+
+časový krok: 9
+	počet buňek nádoru:		5
+	počet P buněk:			5
+	počet I buněk:			125
+	poloměr tumoru:			0.924591
+	tloušťka tkáně P buněk:		0.398611
+	tloušťka nekrotické tkáně:	0.0229713
+	tempo přírůstku I buněk:	0
+
+časový krok: 10
+	počet buňek nádoru:		6
+	počet P buněk:			6
+	počet I buněk:			125
+	poloměr tumoru:			0.924591
+	tloušťka tkáně P buněk:		0.398611
+	tloušťka nekrotické tkáně:	0.0229713
+	tempo přírůstku I buněk:	0
+
+časový krok: 11
+	počet buňek nádoru:		6
+	počet P buněk:			6
+	počet I buněk:			125
+	poloměr tumoru:			1.05691
+	tloušťka tkáně P buněk:		0.435786
+	tloušťka nekrotické tkáně:	0.0711992
+	tempo přírůstku I buněk:	0
+
+časový krok: 12
+	počet buňek nádoru:		6
+	počet P buněk:			6
+	počet I buněk:			125
+	poloměr tumoru:			1.05691
+	tloušťka tkáně P buněk:		0.435786
+	tloušťka nekrotické tkáně:	0.0711992
+	tempo přírůstku I buněk:	0
+
+časový krok: 13
+	počet buňek nádoru:		6
+	počet P buněk:			5
+	počet I buněk:			125
+	poloměr tumoru:			1.05691
+	tloušťka tkáně P buněk:		0.435786
+	tloušťka nekrotické tkáně:	0.0711992
+	tempo přírůstku I buněk:	0
+
+časový krok: 14
+	počet buňek nádoru:		7
+	počet P buněk:			6
+	počet I buněk:			125
+	poloměr tumoru:			2.13278
+	tloušťka tkáně P buněk:		0.6959
+	tloušťka nekrotické tkáně:	0.558722
+	tempo přírůstku I buněk:	0
+
+časový krok: 15
+	počet buňek nádoru:		11
+	počet P buněk:			10
+	počet I buněk:			125
+	poloměr tumoru:			1.7724
+	tloušťka tkáně P buněk:		0.615117
+	tloušťka nekrotické tkáně:	0.381067
+	tempo přírůstku I buněk:	0
+
+časový krok: 16
+	počet buňek nádoru:		13
+	počet P buněk:			12
+	počet I buněk:			125
+	poloměr tumoru:			2.50322
+	tloušťka tkáně P buněk:		0.774312
+	tloušťka nekrotické tkáně:	0.751805
+	tempo přírůstku I buněk:	0
+
+časový krok: 17
+	počet buňek nádoru:		18
+	počet P buněk:			17
+	počet I buněk:			125
+	poloměr tumoru:			2.56001
+	tloušťka tkáně P buněk:		0.785979
+	tloušťka nekrotické tkáně:	0.782205
+	tempo přírůstku I buněk:	0
+
+časový krok: 18
+	počet buňek nádoru:		26
+	počet P buněk:			25
+	počet I buněk:			125
+	poloměr tumoru:			2.98248
+	tloušťka tkáně P buněk:		0.870231
+	tloušťka nekrotické tkáně:	1.0141
+	tempo přírůstku I buněk:	0
+
+časový krok: 19
+	počet buňek nádoru:		34
+	počet P buněk:			33
+	počet I buněk:			125
+	poloměr tumoru:			3.08024
+	tloušťka tkáně P buněk:		0.889144
+	tloušťka nekrotické tkáně:	1.06908
+	tempo přírůstku I buněk:	0
+
+časový krok: 20
+	počet buňek nádoru:		42
+	počet P buněk:			41
+	počet I buněk:			125
+	poloměr tumoru:			3.2918
+	tloušťka tkáně P buněk:		0.929405
+	tloušťka nekrotické tkáně:	1.18957
+	tempo přírůstku I buněk:	0
+
+časový krok: 21
+	počet buňek nádoru:		49
+	počet P buněk:			48
+	počet I buněk:			125
+	poloměr tumoru:			3.62449
+	tloušťka tkáně P buněk:		0.991015
+	tloušťka nekrotické tkáně:	1.38291
+	tempo přírůstku I buněk:	0
+
+časový krok: 22
+	počet buňek nádoru:		65
+	počet P buněk:			64
+	počet I buněk:			125
+	poloměr tumoru:			3.90962
+	tloušťka tkáně P buněk:		1.04233
+	tloušťka nekrotické tkáně:	1.55196
+	tempo přírůstku I buněk:	0
+
+časový krok: 23
+	počet buňek nádoru:		73
+	počet P buněk:			72
+	počet I buněk:			125
+	poloměr tumoru:			4.3051
+	tloušťka tkáně P buněk:		1.11149
+	tloušťka nekrotické tkáně:	1.79102
+	tempo přírůstku I buněk:	0
+
+časový krok: 24
+	počet buňek nádoru:		84
+	počet P buněk:			83
+	počet I buněk:			125
+	poloměr tumoru:			4.52239
+	tloušťka tkáně P buněk:		1.14858
+	tloušťka nekrotické tkáně:	1.92441
+	tempo přírůstku I buněk:	0
+
+časový krok: 25
+	počet buňek nádoru:		99
+	počet P buněk:			97
+	počet I buněk:			125
+	poloměr tumoru:			4.81814
+	tloušťka tkáně P buněk:		1.19813
+	tloušťka nekrotické tkáně:	2.1081
+	tempo přírůstku I buněk:	0
+
+časový krok: 26
+	počet buňek nádoru:		107
+	počet P buněk:			102
+	počet I buněk:			125
+	poloměr tumoru:			5.20009
+	tloušťka tkáně P buněk:		1.26064
+	tloušťka nekrotické tkáně:	2.34865
+	tempo přírůstku I buněk:	0
+
+časový krok: 27
+	počet buňek nádoru:		123
+	počet P buněk:			114
+	počet I buněk:			125
+	poloměr tumoru:			5.41148
+	tloušťka tkáně P buněk:		1.29457
+	tloušťka nekrotické tkáně:	2.48328
+	tempo přírůstku I buněk:	0
+
+časový krok: 28
+	počet buňek nádoru:		138
+	počet P buněk:			126
+	počet I buněk:			124
+	poloměr tumoru:			5.80231
+	tloušťka tkáně P buněk:		1.35618
+	tloušťka nekrotické tkáně:	2.73477
+	tempo přírůstku I buněk:	0
+
+časový krok: 29
+	počet buňek nádoru:		159
+	počet P buněk:			143
+	počet I buněk:			124
+	poloměr tumoru:			6.17313
+	tloušťka tkáně P buněk:		1.41336
+	tloušťka nekrotické tkáně:	2.97625
+	tempo přírůstku I buněk:	0.913043
+
+časový krok: 30
+	počet buňek nádoru:		173
+	počet P buněk:			153
+	počet I buněk:			124
+	poloměr tumoru:			6.63258
+	tloušťka tkáně P buněk:		1.48265
+	tloušťka nekrotické tkáně:	3.27898
+	tempo přírůstku I buněk:	0.899371
+
+časový krok: 31
+	počet buňek nádoru:		185
+	počet P buněk:			153
+	počet I buněk:			124
+	poloměr tumoru:			6.79253
+	tloušťka tkáně P buněk:		1.50639
+	tloušťka nekrotické tkáně:	3.38522
+	tempo přírůstku I buněk:	0.884393
+
+časový krok: 32
+	počet buňek nádoru:		199
+	počet P buněk:			159
+	počet I buněk:			124
+	poloměr tumoru:			6.94344
+	tloušťka tkáně P buněk:		1.52862
+	tloušťka nekrotické tkáně:	3.48585
+	tempo přírůstku I buněk:	0.827027
+
+časový krok: 33
+	počet buňek nádoru:		222
+	počet P buněk:			177
+	počet I buněk:			124
+	poloměr tumoru:			7.25381
+	tloušťka tkáně P buněk:		1.57384
+	tloušťka nekrotické tkáně:	3.69394
+	tempo přírůstku I buněk:	0.798995
+
+časový krok: 34
+	počet buňek nádoru:		245
+	počet P buněk:			190
+	počet I buněk:			124
+	poloměr tumoru:			7.74475
+	tloušťka tkáně P buněk:		1.64407
+	tloušťka nekrotické tkáně:	4.02601
+	tempo přírůstku I buněk:	0.797297
+
+časový krok: 35
+	počet buňek nádoru:		265
+	počet P buněk:			205
+	počet I buněk:			124
+	poloměr tumoru:			8.18983
+	tloušťka tkáně P buněk:		1.70647
+	tloušťka nekrotické tkáně:	4.32995
+	tempo přírůstku I buněk:	0.77551
+
+časový krok: 36
+	počet buňek nádoru:		290
+	počet P buněk:			219
+	počet I buněk:			124
+	poloměr tumoru:			8.49985
+	tloušťka tkáně P buněk:		1.74927
+	tloušťka nekrotické tkáně:	4.54317
+	tempo přírůstku I buněk:	0.773585
+
+časový krok: 37
+	počet buňek nádoru:		312
+	počet P buněk:			228
+	počet I buněk:			124
+	poloměr tumoru:			8.88424
+	tloušťka tkáně P buněk:		1.80162
+	tloušťka nekrotické tkáně:	4.80915
+	tempo přírůstku I buněk:	0.755172
+
+časový krok: 38
+	počet buňek nádoru:		342
+	počet P buněk:			248
+	počet I buněk:			124
+	poloměr tumoru:			9.19105
+	tloušťka tkáně P buněk:		1.84286
+	tloušťka nekrotické tkáně:	5.02267
+	tempo přírůstku I buněk:	0.730769
+
+časový krok: 39
+	počet buňek nádoru:		369
+	počet P buněk:			262
+	počet I buněk:			124
+	poloměr tumoru:			9.63772
+	tloušťka tkáně P buněk:		1.90209
+	tloušťka nekrotické tkáně:	5.33536
+	tempo přírůstku I buněk:	0.725146
+
+časový krok: 40
+	počet buňek nádoru:		386
+	počet P buněk:			275
+	počet I buněk:			124
+	poloměr tumoru:			9.99475
+	tloušťka tkáně P buněk:		1.94878
+	tloušťka nekrotické tkáně:	5.58678
+	tempo přírůstku I buněk:	0.710027
+
+časový krok: 41
+	počet buňek nádoru:		413
+	počet P buněk:			290
+	počet I buněk:			124
+	poloměr tumoru:			10.2059
+	tloušťka tkáně P buněk:		1.97613
+	tloušťka nekrotické tkáně:	5.73606
+	tempo přírůstku I buněk:	0.712435
+
+časový krok: 42
+	počet buňek nádoru:		431
+	počet P buněk:			298
+	počet I buněk:			124
+	poloměr tumoru:			10.594
+	tloušťka tkáně P buněk:		2.02592
+	tloušťka nekrotické tkáně:	6.01155
+	tempo přírůstku I buněk:	0.702179
+
+časový krok: 43
+	počet buňek nádoru:		460
+	počet P buněk:			318
+	počet I buněk:			124
+	poloměr tumoru:			10.8529
+	tloušťka tkáně P buněk:		2.0588
+	tloušťka nekrotické tkáně:	6.1961
+	tempo přírůstku I buněk:	0.691415
+
+časový krok: 44
+	počet buňek nádoru:		480
+	počet P buněk:			320
+	počet I buněk:			124
+	poloměr tumoru:			11.0911
+	tloušťka tkáně P buněk:		2.08882
+	tloušťka nekrotické tkáně:	6.36644
+	tempo přírůstku I buněk:	0.691304
+
+časový krok: 45
+	počet buňek nádoru:		509
+	počet P buněk:			332
+	počet I buněk:			123
+	poloměr tumoru:			11.3161
+	tloušťka tkáně P buněk:		2.11696
+	tloušťka nekrotické tkáně:	6.52771
+	tempo přírůstku I buněk:	0.666667
+
+časový krok: 46
+	počet buňek nádoru:		538
+	počet P buněk:			345
+	počet I buněk:			122
+	poloměr tumoru:			11.6088
+	tloušťka tkáně P buněk:		2.15332
+	tloušťka nekrotické tkáně:	6.73822
+	tempo přírůstku I buněk:	0
+
+časový krok: 47
+	počet buňek nádoru:		564
+	počet P buněk:			355
+	počet I buněk:			122
+	poloměr tumoru:			11.8844
+	tloušťka tkáně P buněk:		2.18726
+	tloušťka nekrotické tkáně:	6.93702
+	tempo přírůstku I buněk:	0.641264
+
+časový krok: 48
+	počet buňek nádoru:		590
+	počet P buněk:			359
+	počet I buněk:			120
+	poloměr tumoru:			12.177
+	tloušťka tkáně P buněk:		2.22301
+	tloušťka nekrotické tkáně:	7.14872
+	tempo přírůstku I buněk:	0.629433
+
+časový krok: 49
+	počet buňek nádoru:		618
+	počet P buněk:			363
+	počet I buněk:			118
+	poloměr tumoru:			12.4827
+	tloušťka tkáně P buněk:		2.26007
+	tloušťka nekrotické tkáně:	7.37063
+	tempo přírůstku I buněk:	1.82542
+
+časový krok: 50
+	počet buňek nádoru:		635
+	počet P buněk:			367
+	počet I buněk:			116
+	poloměr tumoru:			12.8123
+	tloušťka tkáně P buněk:		2.29968
+	tloušťka nekrotické tkáně:	7.61063
+	tempo přírůstku I buněk:	2.93689
+
+časový krok: 51
+	počet buňek nádoru:		659
+	počet P buněk:			385
+	počet I buněk:			110
+	poloměr tumoru:			13.003
+	tloušťka tkáně P buněk:		2.32244
+	tloušťka nekrotické tkáně:	7.74984
+	tempo přírůstku I buněk:	4.04567
+
+časový krok: 52
+	počet buňek nádoru:		686
+	počet P buněk:			395
+	počet I buněk:			109
+	poloměr tumoru:			13.3225
+	tloušťka tkáně P buněk:		2.36033
+	tloušťka nekrotické tkáně:	7.98366
+	tempo přírůstku I buněk:	5.25797
+
+časový krok: 53
+	počet buňek nádoru:		706
+	počet P buněk:			392
+	počet I buněk:			105
+	poloměr tumoru:			13.7153
+	tloušťka tkáně P buněk:		2.4065
+	tloušťka nekrotické tkáně:	8.27204
+	tempo přírůstku I buněk:	5.75802
+
+časový krok: 54
+	počet buňek nádoru:		725
+	počet P buněk:			392
+	počet I buněk:			99
+	poloměr tumoru:			13.9175
+	tloušťka tkáně P buněk:		2.4301
+	tloušťka nekrotické tkáně:	8.42085
+	tempo přírůstku I buněk:	7.77337
+
+časový krok: 55
+	počet buňek nádoru:		750
+	počet P buněk:			400
+	počet I buněk:			94
+	poloměr tumoru:			14.0857
+	tloušťka tkáně P buněk:		2.44963
+	tloušťka nekrotické tkáně:	8.54483
+	tempo přírůstku I buněk:	10.8138
+
+časový krok: 56
+	počet buňek nádoru:		771
+	počet P buněk:			406
+	počet I buněk:			90
+	poloměr tumoru:			14.3093
+	tloušťka tkáně P buněk:		2.4755
+	tloušťka nekrotické tkáně:	8.71
+	tempo přírůstku I buněk:	12.2667
+
+časový krok: 57
+	počet buňek nádoru:		789
+	počet P buněk:			401
+	počet I buněk:			89
+	poloměr tumoru:			14.5549
+	tloušťka tkáně P buněk:		2.50374
+	tloušťka nekrotické tkáně:	8.8917
+	tempo přírůstku I buněk:	12.6381
+
+časový krok: 58
+	počet buňek nádoru:		811
+	počet P buněk:			399
+	počet I buněk:			89
+	poloměr tumoru:			14.7611
+	tloušťka tkáně P buněk:		2.52733
+	tloušťka nekrotické tkáně:	9.04456
+	tempo přírůstku I buněk:	13.7224
+
+časový krok: 59
+	počet buňek nádoru:		835
+	počet P buněk:			412
+	počet I buněk:			87
+	poloměr tumoru:			15.0833
+	tloušťka tkáně P buněk:		2.56397
+	tloušťka nekrotické tkáně:	9.28381
+	tempo přírůstku I buněk:	13.7756
+
+časový krok: 60
+	počet buňek nádoru:		852
+	počet P buněk:			414
+	počet I buněk:			85
+	poloměr tumoru:			15.3244
+	tloušťka tkáně P buněk:		2.59123
+	tloušťka nekrotické tkáně:	9.46332
+	tempo přírůstku I buněk:	13.8156
+
+časový krok: 61
+	počet buňek nádoru:		875
+	počet P buněk:			426
+	počet I buněk:			85
+	poloměr tumoru:			15.5894
+	tloušťka tkáně P buněk:		2.62102
+	tloušťka nekrotické tkáně:	9.66095
+	tempo přírůstku I buněk:	14.0915
+
+časový krok: 62
+	počet buňek nádoru:		909
+	počet P buněk:			436
+	počet I buněk:			85
+	poloměr tumoru:			15.8375
+	tloušťka tkáně P buněk:		2.64875
+	tloušťka nekrotické tkáně:	9.84631
+	tempo přírůstku I buněk:	15.5794
+
+časový krok: 63
+	počet buňek nádoru:		942
+	počet P buněk:			451
+	počet I buněk:			92
+	poloměr tumoru:			16.211
+	tloušťka tkáně P buněk:		2.69023
+	tloušťka nekrotické tkáně:	10.126
+	tempo přírůstku I buněk:	16.308
+
+časový krok: 64
+	počet buňek nádoru:		970
+	počet P buněk:			452
+	počet I buněk:			89
+	poloměr tumoru:			16.7053
+	tloušťka tkáně P buněk:		2.74464
+	tloušťka nekrotické tkáně:	10.4972
+	tempo přírůstku I buněk:	15.3206
+
+časový krok: 65
+	počet buňek nádoru:		996
+	počet P buněk:			451
+	počet I buněk:			94
+	poloměr tumoru:			17.0418
+	tloušťka tkáně P buněk:		2.78138
+	tloušťka nekrotické tkáně:	10.7506
+	tempo přírůstku I buněk:	16.3093
+
+časový krok: 66
+	počet buňek nádoru:		1009
+	počet P buněk:			448
+	počet I buněk:			97
+	poloměr tumoru:			17.2714
+	tloušťka tkáně P buněk:		2.80631
+	tloušťka nekrotické tkáně:	10.9238
+	tempo přírůstku I buněk:	16.754
+
+časový krok: 67
+	počet buňek nádoru:		1034
+	počet P buněk:			462
+	počet I buněk:			98
+	poloměr tumoru:			17.432
+	tloušťka tkáně P buněk:		2.82367
+	tloušťka nekrotické tkáně:	11.0451
+	tempo přírůstku I buněk:	16.4281
+
+časový krok: 68
+	počet buňek nádoru:		1062
+	počet P buněk:			474
+	počet I buněk:			103
+	poloměr tumoru:			17.7919
+	tloušťka tkáně P buněk:		2.86241
+	tloušťka nekrotické tkáně:	11.3174
+	tempo přírůstku I buněk:	17.4255
+
+časový krok: 69
+	počet buňek nádoru:		1083
+	počet P buněk:			479
+	počet I buněk:			104
+	poloměr tumoru:			18.0873
+	tloušťka tkáně P buněk:		2.894
+	tloušťka nekrotické tkáně:	11.5414
+	tempo přírůstku I buněk:	17.4068
+
+časový krok: 70
+	počet buňek nádoru:		1106
+	počet P buněk:			484
+	počet I buněk:			111
+	poloměr tumoru:			18.3387
+	tloušťka tkáně P buněk:		2.92075
+	tloušťka nekrotické tkáně:	11.7322
+	tempo přírůstku I buněk:	18.1339
+
+časový krok: 71
+	počet buňek nádoru:		1131
+	počet P buněk:			482
+	počet I buněk:			120
+	poloměr tumoru:			18.5716
+	tloušťka tkáně P buněk:		2.94543
+	tloušťka nekrotické tkáně:	11.9093
+	tempo přírůstku I buněk:	18.3797
+
+časový krok: 72
+	počet buňek nádoru:		1161
+	počet P buněk:			496
+	počet I buněk:			128
+	poloměr tumoru:			18.737
+	tloušťka tkáně P buněk:		2.96289
+	tloušťka nekrotické tkáně:	12.0352
+	tempo přírůstku I buněk:	17.8992
+
+časový krok: 73
+	počet buňek nádoru:		1186
+	počet P buněk:			503
+	počet I buněk:			133
+	poloměr tumoru:			19.036
+	tloušťka tkáně P buněk:		2.99433
+	tloušťka nekrotické tkáně:	12.2631
+	tempo přírůstku I buněk:	17.9432
+
+časový krok: 74
+	počet buňek nádoru:		1209
+	počet P buněk:			506
+	počet I buněk:			139
+	poloměr tumoru:			19.2416
+	tloušťka tkáně P buněk:		3.01585
+	tloušťka nekrotické tkáně:	12.42
+	tempo přírůstku I buněk:	18.2369
+
+časový krok: 75
+	počet buňek nádoru:		1227
+	počet P buněk:			509
+	počet I buněk:			145
+	poloměr tumoru:			19.4734
+	tloušťka tkáně P buněk:		3.04002
+	tloušťka nekrotické tkáně:	12.5971
+	tempo přírůstku I buněk:	17.5782
+
+časový krok: 76
+	počet buňek nádoru:		1255
+	počet P buněk:			520
+	počet I buněk:			150
+	poloměr tumoru:			19.6275
+	tloušťka tkáně P buněk:		3.05604
+	tloušťka nekrotické tkáně:	12.715
+	tempo přírůstku I buněk:	17.8378
+
+časový krok: 77
+	počet buňek nádoru:		1281
+	počet P buněk:			531
+	počet I buněk:			157
+	poloměr tumoru:			19.8722
+	tloušťka tkáně P buněk:		3.08139
+	tloušťka nekrotické tkáně:	12.9024
+	tempo přírůstku I buněk:	18.2311
+
+časový krok: 78
+	počet buňek nádoru:		1315
+	počet P buněk:			541
+	počet I buněk:			170
+	poloměr tumoru:			20.2087
+	tloušťka tkáně P buněk:		3.11608
+	tloušťka nekrotické tkáně:	13.1604
+	tempo přírůstku I buněk:	18.2389
+
+časový krok: 79
+	počet buňek nádoru:		1339
+	počet P buněk:			550
+	počet I buněk:			177
+	poloměr tumoru:			20.4505
+	tloušťka tkáně P buněk:		3.14089
+	tloušťka nekrotické tkáně:	13.3461
+	tempo přírůstku I buněk:	18.5133
+
+časový krok: 80
+	počet buňek nádoru:		1365
+	počet P buněk:			557
+	počet I buněk:			189
+	poloměr tumoru:			20.7106
+	tloušťka tkáně P buněk:		3.16746
+	tloušťka nekrotické tkáně:	13.5461
+	tempo přírůstku I buněk:	19.7162
+
+časový krok: 81
+	počet buňek nádoru:		1389
+	počet P buněk:			560
+	počet I buněk:			198
+	poloměr tumoru:			20.9264
+	tloušťka tkáně P buněk:		3.18942
+	tloušťka nekrotické tkáně:	13.7122
+	tempo přírůstku I buněk:	19.5868
+
+časový krok: 82
+	počet buňek nádoru:		1410
+	počet P buněk:			562
+	počet I buněk:			209
+	poloměr tumoru:			21.2351
+	tloušťka tkáně P buněk:		3.22072
+	tloušťka nekrotické tkáně:	13.9502
+	tempo přírůstku I buněk:	19.7552
+
+časový krok: 83
+	počet buňek nádoru:		1441
+	počet P buněk:			575
+	počet I buněk:			219
+	poloměr tumoru:			21.465
+	tloušťka tkáně P buněk:		3.24392
+	tloušťka nekrotické tkáně:	14.1276
+	tempo přírůstku I buněk:	19.9291
+
+časový krok: 84
+	počet buňek nádoru:		1473
+	počet P buněk:			580
+	počet I buněk:			224
+	poloměr tumoru:			21.7531
+	tloušťka tkáně P buněk:		3.27288
+	tloušťka nekrotické tkáně:	14.3501
+	tempo přírůstku I buněk:	19.9514
+
+časový krok: 85
+	počet buňek nádoru:		1499
+	počet P buněk:			593
+	počet I buněk:			233
+	poloměr tumoru:			22.0365
+	tloušťka tkáně P buněk:		3.30125
+	tloušťka nekrotické tkáně:	14.5694
+	tempo přírůstku I buněk:	20.4752
+
+časový krok: 86
+	počet buňek nádoru:		1522
+	počet P buněk:			597
+	počet I buněk:			245
+	poloměr tumoru:			22.2256
+	tloušťka tkáně P buněk:		3.32011
+	tloušťka nekrotické tkáně:	14.7159
+	tempo přírůstku I buněk:	20.571
+
+časový krok: 87
+	počet buňek nádoru:		1544
+	počet P buněk:			602
+	počet I buněk:			254
+	poloměr tumoru:			22.4356
+	tloušťka tkáně P buněk:		3.34098
+	tloušťka nekrotické tkáně:	14.8786
+	tempo přírůstku I buněk:	20.3968
+
+časový krok: 88
+	počet buňek nádoru:		1563
+	počet P buněk:			590
+	počet I buněk:			265
+	poloměr tumoru:			22.7298
+	tloušťka tkáně P buněk:		3.37012
+	tloušťka nekrotické tkáně:	15.1069
+	tempo přírůstku I buněk:	20.6645
+
+časový krok: 89
+	počet buňek nádoru:		1583
+	počet P buněk:			597
+	počet I buněk:			269
+	poloměr tumoru:			22.9299
+	tloušťka tkáně P buněk:		3.38988
+	tloušťka nekrotické tkáně:	15.2623
+	tempo přírůstku I buněk:	20.0064
+
+časový krok: 90
+	počet buňek nádoru:		1612
+	počet P buněk:			606
+	počet I buněk:			276
+	poloměr tumoru:			23.1986
+	tloušťka tkáně P buněk:		3.41631
+	tloušťka nekrotické tkáně:	15.4713
+	tempo přírůstku I buněk:	20.7423
+

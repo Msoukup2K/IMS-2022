@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     atexit(cleanup);
     probability_init();
 
-    MODEL = new CA{180};
+    MODEL = new CA{181};
 
     int opt{};
     double animation_freq = 5;
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
                     << "Nastaví věkovou hranici pro buňky v nedefinovaném stavu. Po dosažení daného věku se změní na mrtvé buňky. default=5\n\n"
                     << "\t-K <carrying_cap>\t"
                     << "Upraví parametr pro kapacitu přenosu P buněk. Simuluje účinnost chemoterapie na velikost nádoru.\n"
-                    << "\t\t\t\tPokud není nastaven, nebo je nastaven na 0, nádor dosahuje velikosti jako bez chemoterapie\n\n"
+                    << "\t\t\t\tPokud není nastaven, nebo je nastaven na 0, nádor dosahuje velikosti jako bez chemoterapie.\n\n"
                     << "\t-P <resistance>\t\t"
                     << "Nastaví rezistenci P buněk proti chemoterapii. Bez přepínače -E nebo -p nemá žádný efekt.\n\n"
                     << "\t-Q <resistance>\t\t"
@@ -111,12 +111,12 @@ int main(int argc, char *argv[])
                 break;
 
             case 'P':
-                if (!MODEL->setTherapyResistanceIC(std::stod(optarg)))
+                if (!MODEL->setTherapyResistancePC(std::stod(optarg)))
                     error_exit("odolnost buňek typu P musí být v rozmezí 0 až 0.95");
                 break;
 
             case 'Q':
-                if (!MODEL->setTherapyResistanceIC(std::stod(optarg)))
+                if (!MODEL->setTherapyResistanceQC(std::stod(optarg)))
                     error_exit("odolnost buňek typu Q musí být v rozmezí 0 až 0.4");
                 break;
 
